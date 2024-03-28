@@ -1,13 +1,17 @@
 @extends('layouts.auth')
 
+@section('title', 'Login')
+
 @section('content')
+
     <div class="auth-form-light text-left p-5">
         <div class="brand-logo">
             <img src="{{ asset('images/logo.svg') }}">
         </div>
         <h4>Hello! let's get started</h4>
         <h6 class="font-weight-light">Sign in to continue.</h6>
-        <form class="pt-3">
+
+        <form method="POST" action="{{ route('login') }}" class="needs-validation pt-3" novalidate="">
             @csrf
             <div class="form-group">
                 <input id="email" type="email" class="form-control form-control-lg"
