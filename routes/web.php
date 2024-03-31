@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\JenisBarangController;
+use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +24,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', function () {
         return view('pages.dashboard');
     })->name('home');
+
+    Route::resource('jenisBarang', JenisBarangController::class);
 });

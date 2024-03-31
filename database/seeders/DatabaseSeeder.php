@@ -21,5 +21,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'superadmin',
         ]);
+
+        $this->call([
+            JenisBarangSeeder::class,
+        ]);
     }
 }
