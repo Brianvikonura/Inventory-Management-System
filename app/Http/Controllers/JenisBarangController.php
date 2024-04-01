@@ -14,14 +14,14 @@ class JenisBarangController extends Controller
         $jenisBarangs = JenisBarang::when($request->input('name'), function ($query, $name) {
             return $query->where('name', 'like', '%' . $name . '%');
         })->paginate(10);
-        return view('jenisBarang.index', compact('jenisBarangs'));
+        return view('pages.jenisBarang.index', compact('jenisBarangs'));
     }
 
     // create
     public function create()
     {
         $jenisBarang = DB::table('tbl_jenisbarang')->get();
-        return view('jenisBarang.create');
+        return view('pages.jenisBarang.create');
     }
 
     // store the request
@@ -52,7 +52,7 @@ class JenisBarangController extends Controller
     {
         $jenisBarang = JenisBarang::findOrFail($id);
 
-        return view('jenisBarang.edit', compact('jenisBarang'));
+        return view('pages.jenisBarang.edit', compact('jenisBarang'));
     }
 
     // update the request
