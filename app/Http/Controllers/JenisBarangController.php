@@ -58,7 +58,7 @@ class JenisBarangController extends Controller
     // update the request
     public function update(Request $request, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->jenisbarang)));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->jenisbarang_nama)));
 
         // validate the request
         $request->validate([
