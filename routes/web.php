@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JenisBarangController;
+use App\Http\Controllers\SatuanController;
 use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductTypeController;
@@ -26,4 +27,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     Route::resource('jenisBarang', JenisBarangController::class);
+
+    Route::resource('satuan', SatuanController::class);
 });

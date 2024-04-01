@@ -31,7 +31,7 @@
           <div class="collapse" id="master-barang">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="{{ route('jenisBarang.index') }}">Jenis</a></li>
-              <li class="nav-item"> <a class="nav-link" href="#">Satuan</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{{ route('satuan.index') }}">Satuan</a></li>
               <li class="nav-item"> <a class="nav-link" href="#">Barang</a></li>
             </ul>
           </div>
