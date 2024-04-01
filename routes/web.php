@@ -4,6 +4,7 @@ use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SatuanController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\ProductTypeController;
 
@@ -32,4 +33,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('satuan', SatuanController::class);
 
     Route::resource('barang', BarangController::class);
+
+    Route::resource('customer', CustomerController::class);
 });

@@ -37,7 +37,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ route('customer.index') }}">
             <span class="menu-title">Customer</span>
             <i class="mdi mdi-account-group-outline menu-icon"></i>
           </a>
