@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,9 +18,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="app">
         <div class="main-wrapper">
             <!-- Header -->
@@ -53,6 +54,22 @@
     <script src="{{ asset('js/todolist.js') }}"></script>
     <!-- End custom js for this page -->
 
+    <script>
+        function populateNamaBarang() {
+            var selectedKode = document.getElementById("barang_kode").value;
+            var namaBarangSelect = document.getElementById("barang_id");
+            var namaBarangOptions = namaBarangSelect.getElementsByTagName("option");
+
+            for (var i = 0; i < namaBarangOptions.length; i++) {
+                if (namaBarangOptions[i].getAttribute("value") === selectedKode) {
+                    namaBarangSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    </script>
+
     @stack('scripts')
-  </body>
+</body>
+
 </html>

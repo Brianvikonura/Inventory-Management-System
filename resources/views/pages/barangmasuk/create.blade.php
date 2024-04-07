@@ -25,7 +25,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="barang_kode">Kode Barang <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="barang_kode" name="barang_kode" required>
+                                    <select class="form-control" id="barang_kode" name="barang_kode" required
+                                        onchange="populateNamaBarang()">
                                         <option value="">Pilih Kode Barang</option>
                                         @foreach ($barang as $item)
                                             <option value="{{ $item->barang_kode }}">{{ $item->barang_kode }}</option>
