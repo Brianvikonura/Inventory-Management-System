@@ -50,7 +50,7 @@
             </a>
             <div class="collapse" id="transaksi">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#">Barang Masuk</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('barangmasuk.index') }}">Barang Masuk</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Barang Keluar</a></li>
               </ul>
             </div>
