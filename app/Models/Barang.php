@@ -33,4 +33,11 @@ class Barang extends Model
     {
         return $this->belongsTo(Satuan::class, 'satuan_id', 'satuan_id');
     }
+
+    public function adjustStock($quantity)
+    {
+        $this->barang_stok += $quantity;
+        $this->barang_harga *= $this->barang_stok;
+        $this->save();
+    }
 }

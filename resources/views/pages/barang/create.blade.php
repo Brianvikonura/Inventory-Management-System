@@ -53,7 +53,7 @@
                                     <input type="number" class="form-control" id="barang_stok" name="barang_stok" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="barang_harga">Harga <span class="text-danger">*</span></label>
+                                    <label for="barang_harga">Harga per Barang <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="barang_harga" name="barang_harga" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>

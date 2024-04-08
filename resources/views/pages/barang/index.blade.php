@@ -29,7 +29,8 @@
                                         <th> JENIS </th>
                                         <th> SATUAN </th>
                                         <th> STOK </th>
-                                        <th> HARGA </th>
+                                        <th> HARGA PER STOK</th>
+                                        <th> TOTAL HARGA </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
@@ -48,7 +49,8 @@
                                             <td> {{ $barang->jenis->jenisbarang_nama ?? '-' }} </td>
                                             <td> {{ $barang->satuan->satuan_nama ?? '-' }} </td>
                                             <td> {{ $barang->barang_stok }} </td>
-                                            <td> {{ $barang->barang_harga }} </td>
+                                            <td> Rp. {{ number_format($barang->barang_harga, 0, ',', '.') }} </td>
+                                            <td> Rp. {{ number_format($barang->barang_harga * $barang->barang_stok, 0, ',', '.') }} </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
                                                     <a href="{{ route('barang.edit', ['barang' => $barang]) }}"
