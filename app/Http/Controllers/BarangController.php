@@ -81,14 +81,14 @@ class BarangController extends Controller
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->satuan_nama)));
 
         $request->validate([
-            'jenisbarang_id' => 'required|exists:tbl_jenisbarang,jenisbarang_id', // validation rule for jenisbarang_id
-            'satuan_id' => 'required|exists:tbl_satuan,satuan_id', // validation rule for satuan_id
-            'barang_kode' => 'nullable', // validation rule for barang_kode
-            'barang_nama' => 'nullable', // validation rule for barang_nama
-            'barang_slug' => $slug, // assuming $slug is properly defined
-            'barang_harga' => 'nullable', // validation rule for barang_harga
-            'barang_stok' => 'nullable', // validation rule for barang_stok
-            'barang_gambar' => 'nullable', // validation rule for barang_gambar
+            'jenisbarang_id' => 'required|exists:tbl_jenisbarang,jenisbarang_id',
+            'satuan_id' => 'required|exists:tbl_satuan,satuan_id',
+            'barang_kode' => 'nullable',
+            'barang_nama' => 'nullable',
+            'barang_slug' => $slug,
+            'barang_harga' => 'nullable',
+            'barang_stok' => 'nullable',
+            'barang_gambar' => 'nullable',
         ]);
 
         // update the request
@@ -121,12 +121,9 @@ class BarangController extends Controller
         $barang = Barang::find($id);
 
         if ($barang->barang_gambar) {
-            // Get the full image path
             $imagePath = public_path($barang->barang_gambar);
 
-            // Check if the image file exists
             if (file_exists($imagePath)) {
-                // Delete the image file
                 unlink($imagePath);
             }
         }

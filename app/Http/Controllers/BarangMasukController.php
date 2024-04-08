@@ -43,7 +43,7 @@ class BarangMasukController extends Controller
         $barangmasuk->save();
 
         $barang = Barang::where('barang_kode', $request->barang_kode)->first();
-        $barang->adjustStock($request->barangmasuk_jumlah);
+        $barangmasuk->updateStock();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Ditambahkan');
     }
@@ -77,7 +77,7 @@ class BarangMasukController extends Controller
         $barangmasuk->save();
 
         $barang = Barang::where('barang_kode', $request->barang_kode)->first();
-        $barang->adjustStock($request->barangmasuk_jumlah);
+        $barangmasuk->updateStock();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Diupdate');
     }
@@ -87,6 +87,7 @@ class BarangMasukController extends Controller
     {
         $barangmasuk = BarangMasuk::find($id);
         $barangmasuk->delete();
+        $barangmasuk->updateStock();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Dihapus');
     }

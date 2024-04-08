@@ -22,4 +22,12 @@ class BarangMasuk extends Model
     {
         return $this->belongsTo(Barang::class, 'barang_kode', 'barang_kode');
     }
+
+    public function updateStock()
+    {
+        $barang = $this->barang;
+        $total_masuk = BarangMasuk::where('barang_kode', $this->barang_kode)->sum('barangmasuk_jumlah');
+        $barang->barang_stok = $total_masuk;
+        $barang->save();
+    }
 }
