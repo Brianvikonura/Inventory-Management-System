@@ -49,17 +49,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="customer_id">Nama Customer <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="customer_id" name="customer_id" required>
-                                        <option value="">Pilih Nama Customer</option>
-                                        @foreach ($customer as $item)
-                                            <option value="{{ $item->customer_id }}"
-                                                {{ $item->customer_id == $barangmasuk->customer_id ? 'selected' : '' }}>
-                                                {{ $item->customer_nama }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="barangmasuk_jumlah">Jumlah Masuk <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="barangmasuk_jumlah"
                                         name="barangmasuk_jumlah" value="{{ $barangmasuk->barangmasuk_jumlah }}" required>

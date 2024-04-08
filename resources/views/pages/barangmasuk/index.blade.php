@@ -27,7 +27,6 @@
                                         <th> KODE BARANG MASUK </th>
                                         <th> KODE BARANG </th>
                                         <th> NAMA BARANG </th>
-                                        <th> CUSTOMER </th>
                                         <th> JUMLAH MASUK </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
@@ -43,7 +42,6 @@
                                             <td> {{ $barangmasuk->barangmasuk_kode }} </td>
                                             <td> {{ $barangmasuk->barang->barang_kode ?? '-' }} </td>
                                             <td> {{ $barangmasuk->barang->barang_nama ?? '-' }} </td>
-                                            <td> {{ $barangmasuk->customer->customer_nama }} </td>
                                             <td> {{ $barangmasuk->barangmasuk_jumlah }} </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">

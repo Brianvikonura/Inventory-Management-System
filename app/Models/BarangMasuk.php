@@ -14,7 +14,6 @@ class BarangMasuk extends Model
     protected $fillable = [
         'barangmasuk_kode',
         'barang_kode',
-        'customer_id',
         'barangmasuk_tanggal',
         'barangmasuk_jumlah',
     ];
@@ -22,10 +21,5 @@ class BarangMasuk extends Model
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'barang_kode', 'barang_kode');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
     }
 }

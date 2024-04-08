@@ -15,7 +15,6 @@ return new class extends Migration
             $table->increments('barangmasuk_id');
             $table->string('barangmasuk_kode');
             $table->string('barang_kode');
-            $table->string('customer_id');
             $table->string('barangmasuk_tanggal');
             $table->string('barangmasuk_jumlah');
             $table->timestamps();

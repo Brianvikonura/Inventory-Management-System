@@ -12,7 +12,7 @@ class BarangMasukController extends Controller
     // index
     public function index()
     {
-        $barangmasuk = BarangMasuk::with('barang', 'customer')->get();
+        $barangmasuk = BarangMasuk::with('barang')->get();
         return view('pages.barangmasuk.index', compact('barangmasuk'));
     }
 
@@ -20,8 +20,7 @@ class BarangMasukController extends Controller
     public function create()
     {
         $barang = DB::table('tbl_barang')->get();
-        $customer = DB::table('tbl_customer')->get();
-        return view('pages.barangmasuk.create', compact('barang', 'customer'));
+        return view('pages.barangmasuk.create', compact('barang'));
     }
 
     // store
@@ -31,7 +30,6 @@ class BarangMasukController extends Controller
         $request->validate([
             'barangmasuk_kode' => 'required',
             'barang_kode' => 'required|exists:tbl_barang,barang_kode',
-            'customer_id' => 'required|exists:tbl_customer,customer_id',
             'barangmasuk_tanggal' => 'required',
             'barangmasuk_jumlah' => 'required',
         ]);
@@ -39,7 +37,6 @@ class BarangMasukController extends Controller
         $barangmasuk = new BarangMasuk;
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
         $barangmasuk->barang_kode = $request->barang_kode;
-        $barangmasuk->customer_id = $request->customer_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
         $barangmasuk->barangmasuk_jumlah = $request->barangmasuk_jumlah;
 
@@ -48,7 +45,7 @@ class BarangMasukController extends Controller
         $barang = Barang::where('barang_kode', $request->barang_kode)->first();
         $barang->adjustStock($request->barangmasuk_jumlah);
 
-        return redirect()->route('barangmasuk.index')->with('success', 'Data Customer Berhasil Ditambahkan');
+        return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Ditambahkan');
     }
 
     // edit
@@ -56,8 +53,7 @@ class BarangMasukController extends Controller
     {
         $barangmasuk = BarangMasuk::findOrFail($id);
         $barang = DB::table('tbl_barang')->get();
-        $customer = DB::table('tbl_customer')->get();
-        return view('pages.barangmasuk.edit', compact('barangmasuk', 'barang', 'customer'));
+        return view('pages.barangmasuk.edit', compact('barangmasuk', 'barang'));
     }
 
     // update
@@ -67,7 +63,6 @@ class BarangMasukController extends Controller
         $request->validate([
             'barangmasuk_kode' => 'required',
             'barang_kode' => 'required|exists:tbl_barang,barang_kode',
-            'customer_id' => 'required|exists:tbl_customer,customer_id',
             'barangmasuk_tanggal' => 'required',
             'barangmasuk_jumlah' => 'required',
         ]);
@@ -76,7 +71,6 @@ class BarangMasukController extends Controller
         $barangmasuk = BarangMasuk::findOrFail($id);
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
         $barangmasuk->barang_kode = $request->barang_kode;
-        $barangmasuk->customer_id = $request->customer_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
         $barangmasuk->barangmasuk_jumlah = $request->barangmasuk_jumlah;
 
@@ -85,7 +79,7 @@ class BarangMasukController extends Controller
         $barang = Barang::where('barang_kode', $request->barang_kode)->first();
         $barang->adjustStock($request->barangmasuk_jumlah);
 
-        return redirect()->route('barangmasuk.index')->with('success', 'Data Customer Berhasil Diupdate');
+        return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Diupdate');
     }
 
     // destroy
@@ -94,6 +88,6 @@ class BarangMasukController extends Controller
         $barangmasuk = BarangMasuk::find($id);
         $barangmasuk->delete();
 
-        return redirect()->route('barangmasuk.index')->with('success', 'Data Customer Berhasil Dihapus');
+        return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Dihapus');
     }
 }
