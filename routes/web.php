@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\BarangKeluarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('barang', BarangController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('barangmasuk', BarangMasukController::class);
+    Route::resource('barangkeluar', BarangKeluarController::class);
 });
