@@ -13,15 +13,16 @@ class BarangKeluar extends Model
     protected $primaryKey = 'barangkeluar_id';
     protected $fillable = [
         'barangkeluar_kode',
-        'barang_kode',
+        'barang_id',
         'barangkeluar_tanggal',
         'customer_id',
         'barangkeluar_jumlah',
+        'users_id',
     ];
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'barang_kode', 'barang_kode');
+        return $this->belongsTo(Barang::class, 'barang_id', 'barang_id');
     }
 
     public function customer()
@@ -29,11 +30,16 @@ class BarangKeluar extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
     }
 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
     public function updateStock()
     {
         $barang = $this->barang;
         $stok_awal = $barang->barang_stok;
-        $total_keluar = BarangKeluar::where('barang_kode', $this->barang_kode)->sum('barangkeluar_jumlah');
+        $total_keluar = BarangKeluar::where('barang_id', $this->barang_id)->sum('barangkeluar_jumlah');
         $barang->barang_stok = $stok_awal - $total_keluar;
         $barang->save();
     }

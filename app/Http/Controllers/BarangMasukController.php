@@ -6,13 +6,14 @@ use App\Models\Barang;
 use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BarangMasukController extends Controller
 {
     // index
     public function index()
     {
-        $barangmasuk = BarangMasuk::with('barang')->get();
+        $barangmasuk = BarangMasuk::with('barang', 'users')->get();
         return view('pages.barangmasuk.index', compact('barangmasuk'));
     }
 
@@ -20,7 +21,8 @@ class BarangMasukController extends Controller
     public function create()
     {
         $barang = DB::table('tbl_barang')->get();
-        return view('pages.barangmasuk.create', compact('barang'));
+        $users = DB::table('users')->get();
+        return view('pages.barangmasuk.create', compact('barang', 'users'));
     }
 
     // store
@@ -29,20 +31,20 @@ class BarangMasukController extends Controller
         // validate the request
         $request->validate([
             'barangmasuk_kode' => 'required',
-            'barang_kode' => 'required|exists:tbl_barang,barang_kode',
+            'barang_id' => 'required|exists:tbl_barang,barang_id',
             'barangmasuk_tanggal' => 'required',
             'barangmasuk_jumlah' => 'required',
         ]);
 
         $barangmasuk = new BarangMasuk;
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
-        $barangmasuk->barang_kode = $request->barang_kode;
+        $barangmasuk->barang_id = $request->barang_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
         $barangmasuk->barangmasuk_jumlah = $request->barangmasuk_jumlah;
+        $barangmasuk->users_id = Auth::id();
 
         $barangmasuk->save();
 
-        $barang = Barang::where('barang_kode', $request->barang_kode)->first();
         $barangmasuk->updateStock();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Ditambahkan');
@@ -53,7 +55,8 @@ class BarangMasukController extends Controller
     {
         $barangmasuk = BarangMasuk::findOrFail($id);
         $barang = DB::table('tbl_barang')->get();
-        return view('pages.barangmasuk.edit', compact('barangmasuk', 'barang'));
+        $users = DB::table('users')->get();
+        return view('pages.barangmasuk.edit', compact('barangmasuk', 'barang', 'users'));
     }
 
     // update
@@ -62,7 +65,7 @@ class BarangMasukController extends Controller
         // validate the request
         $request->validate([
             'barangmasuk_kode' => 'required',
-            'barang_kode' => 'required|exists:tbl_barang,barang_kode',
+            'barang_id' => 'required|exists:tbl_barang,barang_id',
             'barangmasuk_tanggal' => 'required',
             'barangmasuk_jumlah' => 'required',
         ]);
@@ -70,13 +73,14 @@ class BarangMasukController extends Controller
         // update the request
         $barangmasuk = BarangMasuk::findOrFail($id);
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
-        $barangmasuk->barang_kode = $request->barang_kode;
+        $barangmasuk->barang_id = $request->barang_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
         $barangmasuk->barangmasuk_jumlah = $request->barangmasuk_jumlah;
+        $barangmasuk->users_id = Auth::id();
 
         $barangmasuk->save();
 
-        $barang = Barang::where('barang_kode', $request->barang_kode)->first();
+        $barang = Barang::where('barang_id', $request->barang_id)->first();
         $barangmasuk->updateStock();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Diupdate');

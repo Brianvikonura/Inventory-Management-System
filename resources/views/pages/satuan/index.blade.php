@@ -25,6 +25,7 @@
                                         <th> NO </th>
                                         <th> SATUAN </th>
                                         <th> KETERANGAN </th>
+                                        <th> CREATED BY </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                         </td>
                                         <td> {{ $satuan->satuan_nama }} </td>
                                         <td> {{ $satuan->satuan_keterangan }} </td>
+                                        <td> {{ $satuan->users->name ?? '-' }} </td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('satuan.edit', ['satuan' => $satuan]) }}" class="btn btn-sm btn-warning mx-1">

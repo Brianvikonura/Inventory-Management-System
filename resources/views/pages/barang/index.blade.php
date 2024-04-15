@@ -31,6 +31,7 @@
                                         <th> STOK </th>
                                         <th> HARGA PER STOK</th>
                                         <th> TOTAL HARGA </th>
+                                        <th> CREATED BY </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
@@ -42,7 +43,10 @@
                                                 {{ $index + 1 }}
                                             </td>
                                             <td>
-                                                <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang" style="max-width: 100px;">
+                                                @if($barang->barang_gambar)
+                                                    <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang" style="max-width: 100px;">
+                                                @else
+                                                @endif
                                             </td>
                                             <td> {{ $barang->barang_kode }} </td>
                                             <td> {{ $barang->barang_nama }} </td>
@@ -51,6 +55,7 @@
                                             <td> {{ $barang->barang_stok }} </td>
                                             <td> Rp. {{ number_format($barang->barang_harga, 0, ',', '.') }} </td>
                                             <td> Rp. {{ number_format($barang->barang_harga * $barang->barang_stok, 0, ',', '.') }} </td>
+                                            <td> {{ $barang->users->name ?? '-' }} </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
                                                     <a href="{{ route('barang.edit', ['barang' => $barang]) }}"

@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SatuanController extends Controller
 {
     // index
     public function index(Request $request)
     {
-        $satuan = Satuan::when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%' . $name . '%');
-        })->paginate(10);
+        $satuan = Satuan::with('users')->get();
         return view('pages.satuan.index', compact('satuan'));
     }
 
     // create
     public function create()
     {
-        $satuan = DB::table('tbl_satuan')->get();
-        return view('pages.satuan.create');
+        $users = DB::table('users')->get();
+        return view('pages.satuan.create', compact('users'));
     }
 
     // store the request
@@ -41,6 +40,7 @@ class SatuanController extends Controller
         $satuan->satuan_nama = $request->satuan_nama;
         $satuan->satuan_slug = $slug;
         $satuan->satuan_keterangan = $request->satuan_keterangan;
+        $satuan->users_id = Auth::id();
 
         $satuan->save();
 
@@ -51,8 +51,8 @@ class SatuanController extends Controller
     public function edit($id)
     {
         $satuan = Satuan::findOrFail($id);
-
-        return view('pages.satuan.edit', compact('satuan'));
+        $users = DB::table('users')->get();
+        return view('pages.satuan.edit', compact('satuan', 'users'));
     }
 
     // update the request
@@ -71,6 +71,7 @@ class SatuanController extends Controller
         $satuan->satuan_nama = $request->satuan_nama;
         $satuan->satuan_slug = $slug;
         $satuan->satuan_keterangan = $request->satuan_keterangan;
+        $satuan->users_id = Auth::id();
 
         $satuan->save();
 

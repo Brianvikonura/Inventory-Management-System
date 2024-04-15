@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('barangkeluar_tanggal');
             $table->string('customer_id');
             $table->string('barangkeluar_jumlah');
+            $table->string('users_id');
             $table->timestamps();
         });
     }

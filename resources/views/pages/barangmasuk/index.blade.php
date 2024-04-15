@@ -28,6 +28,7 @@
                                         <th> KODE BARANG </th>
                                         <th> NAMA BARANG </th>
                                         <th> JUMLAH MASUK </th>
+                                        <th> CREATED BY </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
@@ -43,6 +44,7 @@
                                             <td> {{ $barangmasuk->barang->barang_kode ?? '-' }} </td>
                                             <td> {{ $barangmasuk->barang->barang_nama ?? '-' }} </td>
                                             <td> {{ $barangmasuk->barangmasuk_jumlah }} </td>
+                                            <td> {{ $barangmasuk->users->name ?? '-' }} </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
                                                     <a href="{{ route('barangmasuk.edit', ['barangmasuk' => $barangmasuk]) }}"

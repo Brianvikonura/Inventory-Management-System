@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('barang_slug');
             $table->string('barang_harga');
             $table->string('barang_stok');
-            $table->string('barang_gambar');
+            $table->string('barang_gambar')->nullable();
+            $table->string('users_id');
             $table->timestamps();
         });
     }

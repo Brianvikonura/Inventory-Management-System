@@ -6,13 +6,14 @@ use App\Models\Barang;
 use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BarangKeluarController extends Controller
 {
     // index
     public function index()
     {
-        $barangkeluar = BarangKeluar::with('barang', 'customer')->get();
+        $barangkeluar = BarangKeluar::with('barang', 'customer', 'users')->get();
         return view('pages.barangkeluar.index', compact('barangkeluar'));
     }
 
@@ -21,7 +22,8 @@ class BarangKeluarController extends Controller
     {
         $barang = DB::table('tbl_barang')->get();
         $customer = DB::table('tbl_customer')->get();
-        return view('pages.barangkeluar.create', compact('barang', 'customer'));
+        $users = DB::table('users')->get();
+        return view('pages.barangkeluar.create', compact('barang', 'customer', 'users'));
     }
 
     // store
@@ -30,7 +32,7 @@ class BarangKeluarController extends Controller
         // validate the request
         $request->validate([
             'barangkeluar_kode' => 'required',
-            'barang_kode' => 'required|exists:tbl_barang,barang_kode',
+            'barang_id' => 'required|exists:tbl_barang,barang_id',
             'barangkeluar_tanggal' => 'required',
             'customer_id' => 'required|exists:tbl_customer,customer_id',
             'barangkeluar_jumlah' => 'required',
@@ -38,14 +40,14 @@ class BarangKeluarController extends Controller
 
         $barangkeluar = new BarangKeluar;
         $barangkeluar->barangkeluar_kode = $request->barangkeluar_kode;
-        $barangkeluar->barang_kode = $request->barang_kode;
+        $barangkeluar->barang_id = $request->barang_id;
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->users_id = Auth::id();
 
         $barangkeluar->save();
 
-        $barang = Barang::where('barang_kode', $request->barang_kode)->first();
         $barangkeluar->updateStock();
 
         return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Ditambahkan');
@@ -57,7 +59,8 @@ class BarangKeluarController extends Controller
         $barangkeluar = BarangKeluar::findOrFail($id);
         $barang = DB::table('tbl_barang')->get();
         $customer = DB::table('tbl_customer')->get();
-        return view('pages.barangkeluar.edit', compact('barangkeluar', 'barang', 'customer'));
+        $users = DB::table('users')->get();
+        return view('pages.barangkeluar.edit', compact('barangkeluar', 'barang', 'customer', 'users'));
     }
 
     // update
@@ -72,10 +75,11 @@ class BarangKeluarController extends Controller
         $barangkeluar->barang->save();
 
         $barangkeluar->barangkeluar_kode = $request->barangkeluar_kode;
-        $barangkeluar->barang_kode = $request->barang_kode;
+        $barangkeluar->barang_id = $request->barang_id;
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->users_id = Auth::id();
 
         $barangkeluar->save();
 
@@ -89,7 +93,7 @@ class BarangKeluarController extends Controller
         $barang_keluar_jumlah = $barangkeluar->barangkeluar_jumlah;
         $barangkeluar->delete();
 
-        $barang = Barang::where('barang_kode', $barangkeluar->barang_kode)->first();
+        $barang = Barang::where('barang_id', $barangkeluar->barang_id)->first();
         $barang->barang_stok += $barang_keluar_jumlah;
         $barang->save();
 

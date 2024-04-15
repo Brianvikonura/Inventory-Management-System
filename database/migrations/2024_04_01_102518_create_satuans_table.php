@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('satuan_nama');
             $table->string('satuan_slug');
             $table->string('satuan_keterangan')->nullable();
+            $table->string('users_id');
             $table->timestamps();
         });
     }

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('tbl_barangmasuk', function (Blueprint $table) {
             $table->increments('barangmasuk_id');
             $table->string('barangmasuk_kode');
-            $table->string('barang_kode');
+            $table->string('barang_id');
             $table->string('barangmasuk_tanggal');
             $table->string('barangmasuk_jumlah');
+            $table->string('users_id');
             $table->timestamps();
         });
     }

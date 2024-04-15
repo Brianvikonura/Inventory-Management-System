@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class JenisBarang extends Model
 {
@@ -15,5 +16,11 @@ class JenisBarang extends Model
         'jenisbarang_nama',
         'jenisbarang_slug',
         'jenisbarang_keterangan',
+        'users_id',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }

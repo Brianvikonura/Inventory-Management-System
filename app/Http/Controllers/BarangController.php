@@ -7,13 +7,14 @@ use App\Models\Satuan;
 use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
     // index
     public function index()
     {
-        $barang = Barang::with('jenis', 'satuan')->get();
+        $barang = Barang::with('jenis', 'satuan', 'users')->get();
         return view('pages.barang.index', compact('barang'));
     }
 
@@ -22,7 +23,8 @@ class BarangController extends Controller
     {
         $jenisBarang = DB::table('tbl_jenisbarang')->get();
         $satuan = DB::table('tbl_satuan')->get();
-        return view('pages.barang.create', compact('jenisBarang', 'satuan'));
+        $users = DB::table('users')->get();
+        return view('pages.barang.create', compact('jenisBarang', 'satuan', 'users'));
     }
 
     // store
@@ -40,7 +42,6 @@ class BarangController extends Controller
             'barang_slug' => $slug,
             'barang_harga' => 'required|numeric',
             'barang_stok' => 'required',
-            'barang_gambar' => 'nullable',
         ]);
 
         // store the request
@@ -52,6 +53,7 @@ class BarangController extends Controller
         $barang->barang_slug = $slug;
         $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
+        $barang->users_id = Auth::id();
 
         // save image
         if ($request->hasFile('barang_gambar')) {
@@ -59,6 +61,8 @@ class BarangController extends Controller
             $newImageName = $barang->barang_id . '_' . str_replace(' ', '_', $barang->barang_nama) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/barang', $newImageName);
             $barang->barang_gambar = 'storage/barang/' . $newImageName;
+        } else {
+            $barang->barang_gambar = null;
         }
 
         $barang->save();
@@ -72,7 +76,8 @@ class BarangController extends Controller
         $barang = Barang::findOrFail($id);
         $jenisBarang = DB::table('tbl_jenisbarang')->get();
         $satuan = DB::table('tbl_satuan')->get();
-        return view('pages.barang.edit', compact('barang', 'jenisBarang', 'satuan'));
+        $users = DB::table('users')->get();
+        return view('pages.barang.edit', compact('barang', 'jenisBarang', 'satuan', 'users'));
     }
 
     // update
@@ -100,6 +105,7 @@ class BarangController extends Controller
         $barang->barang_slug = $slug;
         $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
+        $barang->users_id = Auth::id();
         if ($request->hasFile('barang_gambar')) {
             $image = $request->file('barang_gambar');
             $newImageName = $barang->barang_id . '_' . str_replace(' ', '_', $barang->barang_nama) . '.' . $image->getClientOriginalExtension();

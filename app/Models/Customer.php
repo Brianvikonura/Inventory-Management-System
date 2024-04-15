@@ -16,5 +16,11 @@ class Customer extends Model
         'customer_slug',
         'customer_alamat',
         'customer_notelp',
-    ]; 
+        'users_id',
+    ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }

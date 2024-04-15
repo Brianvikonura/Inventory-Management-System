@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class JenisBarangController extends Controller
 {
     // index
     public function index(Request $request)
     {
-        $jenisBarangs = JenisBarang::when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%' . $name . '%');
-        })->paginate(10);
-        return view('pages.jenisBarang.index', compact('jenisBarangs'));
+        $jenisbarang = JenisBarang::with('users')->get();
+        return view('pages.jenisbarang.index', compact('jenisbarang'));
     }
 
     // create
     public function create()
     {
-        $jenisBarang = DB::table('tbl_jenisbarang')->get();
-        return view('pages.jenisBarang.create');
+        $users = DB::table('users')->get();
+        return view('pages.jenisBarang.create', compact('users'));
     }
 
     // store the request
@@ -41,6 +40,7 @@ class JenisBarangController extends Controller
         $jenisBarang->jenisbarang_nama = $request->jenisbarang_nama;
         $jenisBarang->jenisbarang_slug = $slug;
         $jenisBarang->jenisbarang_keterangan = $request->jenisbarang_keterangan;
+        $jenisBarang->users_id = Auth::id();
 
         $jenisBarang->save();
 
@@ -51,8 +51,8 @@ class JenisBarangController extends Controller
     public function edit($id)
     {
         $jenisBarang = JenisBarang::findOrFail($id);
-
-        return view('pages.jenisBarang.edit', compact('jenisBarang'));
+        $users = DB::table('users')->get();
+        return view('pages.jenisBarang.edit', compact('jenisBarang', 'users'));
     }
 
     // update the request
@@ -71,6 +71,7 @@ class JenisBarangController extends Controller
         $jenisBarang->jenisbarang_nama = $request->jenisbarang_nama;
         $jenisBarang->jenisbarang_slug = $slug;
         $jenisBarang->jenisbarang_keterangan = $request->jenisbarang_keterangan;
+        $jenisBarang->users_id = Auth::id();
 
         $jenisBarang->save();
 

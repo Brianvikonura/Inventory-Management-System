@@ -22,6 +22,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'superadmin',
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'Sales',
+            'email' => 'sales@example.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'admin',
+        ]);
+
         $this->call([
             JenisBarangSeeder::class,
         ]);

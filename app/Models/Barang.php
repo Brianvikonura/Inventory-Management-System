@@ -20,17 +20,21 @@ class Barang extends Model
         'barang_harga',
         'barang_stok',
         'barang_gambar',
+        'users_id',
     ];
 
-    // Define the relationship with JenisBarang
     public function jenis()
     {
         return $this->belongsTo(JenisBarang::class, 'jenisbarang_id', 'jenisbarang_id');
     }
 
-    // Define the relationship with Satuan
     public function satuan()
     {
         return $this->belongsTo(Satuan::class, 'satuan_id', 'satuan_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }

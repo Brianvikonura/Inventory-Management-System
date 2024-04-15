@@ -25,18 +25,20 @@
                                         <th> NO </th>
                                         <th> JENIS BARANG </th>
                                         <th> KETERANGAN </th>
+                                        <th> CREATED BY </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($jenisBarangs as $index => $jenisbarang)
+                                    @foreach ($jenisbarang as $index => $jenisbarang)
                                     <tr>
                                         <td class="py-1">
                                             {{ $index + 1 }}
                                         </td>
                                         <td> {{ $jenisbarang->jenisbarang_nama }} </td>
                                         <td> {{ $jenisbarang->jenisbarang_keterangan }} </td>
+                                        <td> {{ $jenisbarang->users->name ?? '-' }} </td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('jenisBarang.edit', ['jenisBarang' => $jenisbarang]) }}" class="btn btn-sm btn-warning mx-1">

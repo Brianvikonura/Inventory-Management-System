@@ -26,6 +26,7 @@
                                         <th> CUSTOMER </th>
                                         <th> ALAMAT </th>
                                         <th> NO TELP </th>
+                                        <th> CREATED BY </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
                                 </thead>
@@ -39,6 +40,7 @@
                                         <td> {{ $customer->customer_nama }} </td>
                                         <td> {{ $customer->customer_alamat }} </td>
                                         <td> {{ $customer->customer_notelp }} </td>
+                                        <td> {{ $customer->users->name ?? '-' }} </td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('customer.edit', ['customer' => $customer]) }}" class="btn btn-sm btn-warning mx-1">

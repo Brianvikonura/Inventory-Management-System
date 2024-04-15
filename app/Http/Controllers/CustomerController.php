@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
     // index
     public function index(Request $request)
     {
-        $customer = Customer::when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%' . $name . '%');
-        })->paginate(10);
+        $customer = Customer::with('users')->get();
         return view('pages.customer.index', compact('customer'));
     }
 
     // create
     public function create()
     {
-        $customer = DB::table('tbl_customer')->get();
-        return view('pages.customer.create');
+        $users = DB::table('users')->get();
+        return view('pages.customer.create', compact('users'));
     }
 
     // store the request
@@ -43,6 +42,7 @@ class CustomerController extends Controller
         $customer->customer_slug = $slug;
         $customer->customer_alamat = $request->customer_alamat;
         $customer->customer_notelp = $request->customer_notelp;
+        $customer->users_id = Auth::id();
 
         $customer->save();
 
@@ -53,8 +53,8 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = customer::findOrFail($id);
-
-        return view('pages.customer.edit', compact('customer'));
+        $users = DB::table('users')->get();
+        return view('pages.customer.edit', compact('customer', 'users'));
     }
 
     // update the request
@@ -76,6 +76,7 @@ class CustomerController extends Controller
         $customer->customer_slug = $slug;
         $customer->customer_alamat = $request->customer_alamat;
         $customer->customer_notelp = $request->customer_notelp;
+        $customer->users_id = Auth::id();
 
         $customer->save();
 

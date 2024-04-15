@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('jenisbarang_nama');
             $table->string('jenisbarang_slug');
             $table->string('jenisbarang_keterangan')->nullable();
+            $table->string('users_id');
             $table->timestamps();
         });
     }

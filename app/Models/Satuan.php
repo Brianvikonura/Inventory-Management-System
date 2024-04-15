@@ -15,5 +15,11 @@ class Satuan extends Model
        'satuan_nama',
        'satuan_slug',
        'satuan_keterangan',
+        'users_id',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }
