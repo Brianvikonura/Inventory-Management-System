@@ -22,8 +22,10 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                    <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang"
-                                        style="max-width: 100px;">
+                                    @if ($barang->barang_gambar)
+                                        <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang"
+                                            style="max-width: 100px;">
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="barang_kode">Kode Barang <span class="text-danger">*</span></label>

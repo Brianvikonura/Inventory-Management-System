@@ -26,19 +26,12 @@
                                         value="{{ $barangmasuk->barangmasuk_kode }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="barang_kode">Kode Barang <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="barang_kode" name="barang_kode" required readonly>
-                                        <option value="{{ $barangmasuk->barang_kode }}">{{ $barangmasuk->barang_kode }}</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="barang_id">Nama Barang <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="barang_id" name="barang_id" required disabled>
+                                    <select class="form-control" id="barang_id" name="barang_id" required>
                                         <option value="">Pilih Nama Barang</option>
                                         @foreach ($barang as $item)
-                                            <option value="{{ $item->barang_kode }}"
-                                                {{ $item->barang_kode == $barangmasuk->barang_kode ? 'selected' : '' }}>
+                                            <option value="{{ $item->barang_id }}"
+                                                {{ $item->barang_id == $barangmasuk->barang_id ? 'selected' : '' }}>
                                                 {{ $item->barang_nama }}</option>
                                         @endforeach
                                     </select>
@@ -56,20 +49,4 @@
                 </div>
             </div>
         </div>
-    @endsection
-
-    @section('scripts')
-        <script>
-            function populateNamaBarang() {
-                var selectedKode = document.getElementById("barang_kode").value;
-                var namaBarangSelect = document.getElementById("barang_id");
-                var namaBarangOptions = namaBarangSelect.getElementsByTagName("option");
-                for (var i = 0; i < namaBarangOptions.length; i++) {
-                    if (namaBarangOptions[i].getAttribute("value") === selectedKode) {
-                        namaBarangSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
-        </script>
     @endsection

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_barangkeluar', function (Blueprint $table) {
             $table->increments('barangkeluar_id');
             $table->string('barangkeluar_kode');
-            $table->string('barang_kode');
+            $table->string('barang_id');
             $table->string('barangkeluar_tanggal');
             $table->string('customer_id');
             $table->string('barangkeluar_jumlah');

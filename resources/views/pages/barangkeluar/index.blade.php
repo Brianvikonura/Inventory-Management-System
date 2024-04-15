@@ -29,6 +29,7 @@
                                         <th> NAMA BARANG </th>
                                         <th> CUSTOMER </th>
                                         <th> JUMLAH KELUAR </th>
+                                        <td> CREATED BY </td>
                                         <th> INVOICE </th>
                                         <th class="text-center"> ACTION </th>
                                     </tr>
@@ -46,6 +47,7 @@
                                             <td> {{ $barangkeluar->barang->barang_nama ?? '-' }} </td>
                                             <td> {{ $barangkeluar->customer->customer_nama ?? '-' }} </td>
                                             <td> {{ $barangkeluar->barangkeluar_jumlah }} </td>
+                                            <td> {{ $barangkeluar->users->name ?? '-' }} </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
                                                     <a href="#" class="btn btn-info btn-rounded btn-icon d-flex justify-content-center align-items-center">

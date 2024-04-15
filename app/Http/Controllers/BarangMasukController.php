@@ -62,16 +62,14 @@ class BarangMasukController extends Controller
     // update
     public function update(Request $request, $id)
     {
-        // validate the request
-        $request->validate([
-            'barangmasuk_kode' => 'required',
-            'barang_id' => 'required|exists:tbl_barang,barang_id',
-            'barangmasuk_tanggal' => 'required',
-            'barangmasuk_jumlah' => 'required',
-        ]);
-
-        // update the request
         $barangmasuk = BarangMasuk::findOrFail($id);
+        $barangmasuk_sebelumnya = BarangMasuk::find($id);
+
+        $stok_seharusnya = $barangmasuk->barang->barang_stok - $barangmasuk_sebelumnya->barangmasuk_jumlah;
+        $barangmasuk->barang->barang_stok = $stok_seharusnya + $request->barangmasuk_jumlah;
+
+        $barangmasuk->barang->save();
+
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
         $barangmasuk->barang_id = $request->barang_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
@@ -80,9 +78,6 @@ class BarangMasukController extends Controller
 
         $barangmasuk->save();
 
-        $barang = Barang::where('barang_id', $request->barang_id)->first();
-        $barangmasuk->updateStock();
-
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Diupdate');
     }
 
@@ -90,8 +85,12 @@ class BarangMasukController extends Controller
     public function destroy($id)
     {
         $barangmasuk = BarangMasuk::find($id);
+        $barang_masuk_jumlah = $barangmasuk->barangmasuk_jumlah;
         $barangmasuk->delete();
-        $barangmasuk->updateStock();
+
+        $barang = Barang::where('barang_id', $barangmasuk->barang_id)->first();
+        $barang->barang_stok = $barang->barang_stok - $barang_masuk_jumlah;
+        $barang->save();
 
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Dihapus');
     }

@@ -32,8 +32,9 @@ class BarangMasuk extends Model
     public function updateStock()
     {
         $barang = $this->barang;
+        $stok_awal = $barang->barang_stok;
         $total_masuk = BarangMasuk::where('barang_id', $this->barang_id)->sum('barangmasuk_jumlah');
-        $barang->barang_stok = $total_masuk;
+        $barang->barang_stok = $total_masuk + $stok_awal;
         $barang->save();
     }
 }
