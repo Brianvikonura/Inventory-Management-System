@@ -27,7 +27,7 @@ class SettingsController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->old_password, $user->password)) {
-            return redirect()->back()->withInput()->withErrors(['old_password' => 'The old password is incorrect.']);
+            return redirect()->route('settings.index')->with('error', 'Password Sekarang Salah');
         }
 
         $user->name = $request->name;
@@ -37,6 +37,6 @@ class SettingsController extends Controller
         }
         $user->save();
 
-        return redirect()->route('settings.index')->with('success', 'User settings updated successfully.');
+        return redirect()->route('settings.index')->with('success', 'Pengaturan Akun Berhasil Diupdate');
     }
 }

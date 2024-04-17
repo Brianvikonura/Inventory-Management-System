@@ -7,6 +7,11 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    @include('layouts.alert')
+                                </div>
+                            </div>
                             <h4 class="card-title">Pengaturan Akun</h4>
                             <p class="card-description"></p>
                             <form method="POST" action="{{ route('settings.update', $user->id) }}">

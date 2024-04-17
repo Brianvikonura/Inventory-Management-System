@@ -7,11 +7,11 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col-12">
                                     @include('layouts.alert')
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="card-title">Jenis Barang</h4>
                                 <div>
