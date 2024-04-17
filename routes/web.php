@@ -2,6 +2,7 @@
 
 use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\CustomerController;
@@ -37,4 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('barangmasuk', BarangMasukController::class);
     Route::resource('barangkeluar', BarangKeluarController::class);
     Route::resource('settings', SettingsController::class);
+    Route::resource('pengguna', UserController::class);
 });

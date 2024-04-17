@@ -70,7 +70,7 @@
             </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ route('pengguna.index') }}">
             <span class="menu-title">Pengguna</span>
             <i class="mdi mdi-account-search menu-icon"></i>
           </a>

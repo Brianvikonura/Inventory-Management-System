@@ -12,20 +12,20 @@ class UserController extends Controller
     // index
     public function index(Request $request)
     {
-        $users = DB::table('users')
-        ->when($request->input('name'), function ($query, $name) {
-            $query->where('name', 'like', '%'.$name.'%')
-            ->orWhere('email', 'like', '%'.$name.'%');
-        })
+        $users = User::query()
+            ->when($request->input('name'), function ($query, $name) {
+                $query->where('name', 'like', '%' . $name . '%')
+                    ->orWhere('email', 'like', '%' . $name . '%');
+            })
+            ->paginate(10);
 
-        ->paginate(10);
-        // return view('pages.users.index', compact('users'));
+        return view('pages.pengguna.index', compact('users'));
     }
 
     // create
     public function create()
     {
-        return view('pages.users.create');
+        return view('pages.pengguna.create');
     }
 
     // store
@@ -35,8 +35,10 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed',
             'role' => 'required|in:superadmin,admin',
+        ], [
+            'password.confirmed' => 'Konfirmasi password tidak sesuai dengan password'
         ]);
 
         // store the request
@@ -47,20 +49,20 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        // return redirect()->route('users.index')->with('success', 'User created successfully');
+        return redirect()->route('pengguna.index')->with('success', 'Data Pengguna Berhasil Dibuat');
     }
 
     // show
     public function show($id)
     {
-        // return view('pages.users.show');
+        return view('pages.pengguna.show');
     }
 
     // edit
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        // return view('pages.users.edit', compact('user'));
+        return view('pages.pengguna.edit', compact('user'));
     }
 
     // update
@@ -68,23 +70,26 @@ class UserController extends Controller
     {
         // validate the request
         $request->validate([
-            'name' =>'required',
-            'email' =>'required',
-            'role' =>'required|in:superadmin,admin',
+            'name' => 'required',
+            'email' => 'required',
+            'role' => 'required|in:superadmin,admin',
         ]);
 
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
-        $user->save();
 
-        if ($request->password) {
+        if ($request->filled('password')) {
+            if ($request->password != $request->password_confirmation) {
+                return redirect()->back()->with('error', 'Konfirmasi password tidak sesuai dengan password');
+            }
             $user->password = Hash::make($request->password);
-            $user->save();
         }
 
-        // return redirect()->route('users.index')->with('success', 'User updated successfully');
+        $user->save();
+
+        return redirect()->route('pengguna.index')->with('success', 'Data Pengguna Berhasil Diupdate');
     }
 
     // destroy
@@ -93,6 +98,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        // return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        return redirect()->route('pengguna.index')->with('success', 'Data Pengguna Berhasil Dihapus');
     }
 }
