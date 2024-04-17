@@ -13,6 +13,13 @@ class JenisBarangController extends Controller
     public function index(Request $request)
     {
         $jenisbarang = JenisBarang::with('users')->get();
+        $jenisbarang = JenisBarang::query()
+            ->when($request->input('jenisbarang_nama'), function ($query, $jenisbarang_nama) {
+                $query->where('jenisbarang_nama', 'like', '%' . $jenisbarang_nama . '%')
+                    ->orWhere('jenisbarang_keterangan', 'like', '%' . $jenisbarang_nama . '%');
+            })
+            ->paginate(10);
+
         return view('pages.jenisbarang.index', compact('jenisbarang'));
     }
 

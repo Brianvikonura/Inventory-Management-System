@@ -11,9 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class BarangKeluarController extends Controller
 {
     // index
-    public function index()
+    public function index(Request $request)
     {
         $barangkeluar = BarangKeluar::with('barang', 'customer', 'users')->get();
+        $barangkeluar = BarangKeluar::query()
+            ->when($request->input('barangkeluar_nama'), function ($query, $barangkeluar_nama) {
+                $query->where('barangkeluar_nama', 'like', '%' . $barangkeluar_nama . '%')
+                    ->orWhere('barangkeluar_kode', 'like', '%' . $barangkeluar_nama . '%');
+            })
+            ->paginate(10);
+
         return view('pages.barangkeluar.index', compact('barangkeluar'));
     }
 

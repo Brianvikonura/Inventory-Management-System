@@ -13,6 +13,13 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customer = Customer::with('users')->get();
+        $customer = Customer::query()
+            ->when($request->input('customer_nama'), function ($query, $customer_nama) {
+                $query->where('customer_nama', 'like', '%' . $customer_nama . '%')
+                    ->orWhere('customer_alamat', 'like', '%' . $customer_nama . '%');
+            })
+            ->paginate(10);
+
         return view('pages.customer.index', compact('customer'));
     }
 

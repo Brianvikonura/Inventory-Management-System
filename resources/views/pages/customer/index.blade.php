@@ -14,9 +14,23 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="card-title">Data Customer</h4>
-                                <div>
-                                    <a class="btn btn-primary" href="{{ route('customer.create') }}">Tambah Data
-                                        <i class="fe fe-plus"></i></a>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <form method="GET" action="{{ route('customer.index') }}">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search"
+                                                    name="customer_nama">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary"><i
+                                                            class="mdi mdi-account-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="ms-2">
+                                        <a class="btn btn-primary" href="{{ route('customer.create') }}">Tambah Data
+                                            <i class="fe fe-plus"></i></a>
+                                    </div>
                                 </div>
                             </div>
                             <table class="table table-striped">

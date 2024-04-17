@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Auth;
 class BarangController extends Controller
 {
     // index
-    public function index()
+    public function index(Request $request)
     {
         $barang = Barang::with('jenis', 'satuan', 'users')->get();
+        $barang = Barang::query()
+            ->when($request->input('barang_nama'), function ($query, $barang_nama) {
+                $query->where('barang_nama', 'like', '%' . $barang_nama . '%')
+                    ->orWhere('barang_kode', 'like', '%' . $barang_nama . '%');
+            })
+            ->paginate(10);
+
         return view('pages.barang.index', compact('barang'));
     }
 

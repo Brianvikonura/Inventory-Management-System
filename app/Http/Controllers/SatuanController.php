@@ -13,6 +13,13 @@ class SatuanController extends Controller
     public function index(Request $request)
     {
         $satuan = Satuan::with('users')->get();
+        $satuan = Satuan::query()
+            ->when($request->input('satuan_nama'), function ($query, $satuan_nama) {
+                $query->where('satuan_nama', 'like', '%' . $satuan_nama . '%')
+                    ->orWhere('satuan_keterangan', 'like', '%' . $satuan_nama . '%');
+            })
+            ->paginate(10);
+
         return view('pages.satuan.index', compact('satuan'));
     }
 
