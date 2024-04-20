@@ -33,19 +33,15 @@ class SatuanController extends Controller
     // store the request
     public function store(Request $request)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->satuan_nama)));
-
         // validate the request
         $request->validate([
             'satuan_nama' =>'required',
-            'satuan_slug' => $slug,
             'satuan_keterangan' =>'nullable',
         ]);
 
         // store the request
         $satuan = new Satuan;
         $satuan->satuan_nama = $request->satuan_nama;
-        $satuan->satuan_slug = $slug;
         $satuan->satuan_keterangan = $request->satuan_keterangan;
         $satuan->users_id = Auth::id();
 
@@ -65,18 +61,14 @@ class SatuanController extends Controller
     // update the request
     public function update(Request $request, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->satuan_nama)));
-
         // validate the request
         $request->validate([
             'satuan_nama' =>'required|string|max:255',
-            'satuan_slug' => $slug,
         ]);
 
         // store the request
         $satuan = Satuan::findOrFail($id);
         $satuan->satuan_nama = $request->satuan_nama;
-        $satuan->satuan_slug = $slug;
         $satuan->satuan_keterangan = $request->satuan_keterangan;
         $satuan->users_id = Auth::id();
 

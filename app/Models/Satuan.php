@@ -13,7 +13,6 @@ class Satuan extends Model
     protected $primaryKey ='satuan_id';
     protected $fillable = [
        'satuan_nama',
-       'satuan_slug',
        'satuan_keterangan',
         'users_id',
     ];

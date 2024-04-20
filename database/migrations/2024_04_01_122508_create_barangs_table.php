@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_barang', function (Blueprint $table) {
             $table->increments('barang_id');
-            $table->string('jenisbarang_id')->nullable();
-            $table->string('satuan_id')->nullable();
+            $table->string('jenisbarang_id');
+            $table->string('satuan_id');
             $table->string('barang_kode');
             $table->string('barang_nama');
-            $table->string('barang_slug');
-            $table->string('barang_harga');
-            $table->string('barang_stok');
+            $table->integer('barang_harga');
+            $table->integer('barang_stok');
             $table->string('barang_gambar')->nullable();
             $table->string('users_id');
             $table->timestamps();

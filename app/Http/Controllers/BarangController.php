@@ -37,16 +37,12 @@ class BarangController extends Controller
     // store
     public function store(Request $request)
     {
-
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->satuan_nama)));
-
         // validate the request
         $request->validate([
             'jenisbarang_id' => 'required|exists:tbl_jenisbarang,jenisbarang_id',
             'satuan_id' => 'required|exists:tbl_satuan,satuan_id',
             'barang_kode' => 'required',
             'barang_nama' => 'required',
-            'barang_slug' => $slug,
             'barang_harga' => 'required|numeric',
             'barang_stok' => 'required',
         ]);
@@ -57,7 +53,6 @@ class BarangController extends Controller
         $barang->satuan_id = $request->satuan_id;
         $barang->barang_kode = $request->barang_kode;
         $barang->barang_nama = $request->barang_nama;
-        $barang->barang_slug = $slug;
         $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
         $barang->users_id = Auth::id();
@@ -90,14 +85,11 @@ class BarangController extends Controller
     // update
     public function update(Request $request, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->satuan_nama)));
-
         $request->validate([
             'jenisbarang_id' => 'required|exists:tbl_jenisbarang,jenisbarang_id',
             'satuan_id' => 'required|exists:tbl_satuan,satuan_id',
             'barang_kode' => 'nullable',
             'barang_nama' => 'nullable',
-            'barang_slug' => $slug,
             'barang_harga' => 'nullable',
             'barang_stok' => 'nullable',
             'barang_gambar' => 'nullable',
@@ -109,7 +101,6 @@ class BarangController extends Controller
         $barang->satuan_id = $request->satuan_id;
         $barang->barang_kode = $request->barang_kode;
         $barang->barang_nama = $request->barang_nama;
-        $barang->barang_slug = $slug;
         $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
         $barang->users_id = Auth::id();

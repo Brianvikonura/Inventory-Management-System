@@ -17,8 +17,13 @@ return new class extends Migration
             $table->string('barang_id');
             $table->string('barangkeluar_tanggal');
             $table->string('customer_id');
-            $table->string('barangkeluar_jumlah');
+            $table->integer('barangkeluar_jumlah');
+            $table->integer('barangkeluar_ongkir');
+            $table->integer('barangkeluar_tax');
+            $table->integer('barangkeluar_subtotal');
+            $table->integer('barangkeluar_total');
             $table->string('users_id');
+            $table->string('ekspedisi_id');
             $table->timestamps();
         });
     }

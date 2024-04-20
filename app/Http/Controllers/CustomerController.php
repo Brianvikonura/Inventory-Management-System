@@ -33,12 +33,9 @@ class CustomerController extends Controller
     // store the request
     public function store(Request $request)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->customer_nama)));
-
         // validate the request
         $request->validate([
             'customer_nama' =>'required',
-            'customer_slug' => $slug,
             'customer_alamat' =>'required',
             'customer_notelp' =>'required',
         ]);
@@ -46,7 +43,6 @@ class CustomerController extends Controller
         // store the request
         $customer = new customer;
         $customer->customer_nama = $request->customer_nama;
-        $customer->customer_slug = $slug;
         $customer->customer_alamat = $request->customer_alamat;
         $customer->customer_notelp = $request->customer_notelp;
         $customer->users_id = Auth::id();
@@ -67,12 +63,9 @@ class CustomerController extends Controller
     // update the request
     public function update(Request $request, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->customer_nama)));
-
         // validate the request
         $request->validate([
             'customer_nama' =>'nullable',
-            'customer_slug' => $slug,
             'customer_alamat' =>'nullable',
             'customer_notelp' =>'nullable',
         ]);
@@ -80,7 +73,6 @@ class CustomerController extends Controller
         // store the request
         $customer = customer::findOrFail($id);
         $customer->customer_nama = $request->customer_nama;
-        $customer->customer_slug = $slug;
         $customer->customer_alamat = $request->customer_alamat;
         $customer->customer_notelp = $request->customer_notelp;
         $customer->users_id = Auth::id();

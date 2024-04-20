@@ -32,5 +32,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             JenisBarangSeeder::class,
         ]);
+
+        $this->call([
+            EkspedisiSeeder::class,
+        ]);
     }
 }

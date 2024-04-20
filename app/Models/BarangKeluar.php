@@ -17,7 +17,12 @@ class BarangKeluar extends Model
         'barangkeluar_tanggal',
         'customer_id',
         'barangkeluar_jumlah',
+        'barangkeluar_ongkir',
+        'barangkeluar_tax',
+        'barangkeluar_subtotal',
+        'barangkeluar_total',
         'users_id',
+        'ekspedisi_id',
     ];
 
     public function barang()
@@ -33,6 +38,11 @@ class BarangKeluar extends Model
     public function users()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function ekspedisi()
+    {
+        return $this->belongsTo(Ekspedisi::class, 'ekspedisi_id', 'ekspedisi_id');
     }
 
     public function updateStock()

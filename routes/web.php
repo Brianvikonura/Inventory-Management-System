@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
@@ -9,7 +8,6 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
-use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\BarangKeluarController;
 
 /*

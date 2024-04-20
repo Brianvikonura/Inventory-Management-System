@@ -4,22 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
-class JenisBarang extends Model
+class Ekspedisi extends Model
 {
     use HasFactory;
-
-    protected $table = 'tbl_jenisbarang';
-    protected $primaryKey = 'jenisbarang_id';
+    protected $table = "tbl_ekspedisi";
+    protected $primaryKey = 'ekspedisi_id';
     protected $fillable = [
-        'jenisbarang_nama',
-        'jenisbarang_keterangan',
+        'ekspedisi_nama',
+        'ekspedisi_jenis',
         'users_id',
     ];
 
     public function users()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function barangkeluar()
+    {
+        return $this->hasMany(BarangKeluar::class, 'barangkeluar_id', 'barangkeluar_id');
     }
 }

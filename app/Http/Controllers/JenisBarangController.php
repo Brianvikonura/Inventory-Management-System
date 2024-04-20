@@ -33,19 +33,15 @@ class JenisBarangController extends Controller
     // store the request
     public function store(Request $request)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->jenisbarang_nama)));
-
         // validate the request
         $request->validate([
             'jenisbarang_nama' =>'required',
-            'jenisbarang_slug' => $slug,
             'jenisbarang_keterangan' =>'nullable',
         ]);
 
         // store the request
         $jenisBarang = new JenisBarang;
         $jenisBarang->jenisbarang_nama = $request->jenisbarang_nama;
-        $jenisBarang->jenisbarang_slug = $slug;
         $jenisBarang->jenisbarang_keterangan = $request->jenisbarang_keterangan;
         $jenisBarang->users_id = Auth::id();
 
@@ -65,18 +61,14 @@ class JenisBarangController extends Controller
     // update the request
     public function update(Request $request, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->jenisbarang_nama)));
-
         // validate the request
         $request->validate([
             'jenisbarang_nama' =>'required|string|max:255',
-            'jenisbarang_slug' => $slug,
         ]);
 
         // store the request
         $jenisBarang = JenisBarang::findOrFail($id);
         $jenisBarang->jenisbarang_nama = $request->jenisbarang_nama;
-        $jenisBarang->jenisbarang_slug = $slug;
         $jenisBarang->jenisbarang_keterangan = $request->jenisbarang_keterangan;
         $jenisBarang->users_id = Auth::id();
 

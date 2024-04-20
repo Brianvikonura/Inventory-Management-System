@@ -13,7 +13,7 @@ class BarangKeluarController extends Controller
     // index
     public function index(Request $request)
     {
-        $barangkeluar = BarangKeluar::with('barang', 'customer', 'users')->get();
+        $barangkeluar = BarangKeluar::with('barang', 'customer', 'users', 'ekspedisi')->get();
         $barangkeluar = BarangKeluar::query()
             ->when($request->input('barangkeluar_nama'), function ($query, $barangkeluar_nama) {
                 $query->where('barangkeluar_nama', 'like', '%' . $barangkeluar_nama . '%')
@@ -30,7 +30,9 @@ class BarangKeluarController extends Controller
         $barang = DB::table('tbl_barang')->get();
         $customer = DB::table('tbl_customer')->get();
         $users = DB::table('users')->get();
-        return view('pages.barangkeluar.create', compact('barang', 'customer', 'users'));
+        $ekspedisi = DB::table('tbl_ekspedisi')->get();
+
+        return view('pages.barangkeluar.create', compact('barang', 'customer', 'users', 'ekspedisi'));
     }
 
     // store
@@ -43,6 +45,11 @@ class BarangKeluarController extends Controller
             'barangkeluar_tanggal' => 'required',
             'customer_id' => 'required|exists:tbl_customer,customer_id',
             'barangkeluar_jumlah' => 'required',
+            'barangkeluar_ongkir' => 'nullable',
+            'barangkeluar_tax' => 'required',
+            'barangkeluar_subtotal' => 'required',
+            'barangkeluar_total' => 'required',
+            'ekspedisi_id' => 'required|exists:tbl_ekspedisi,ekspedisi_id',
         ]);
 
         $barangkeluar = new BarangKeluar;
@@ -51,6 +58,11 @@ class BarangKeluarController extends Controller
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->barangkeluar_ongkir = $request->barangkeluar_ongkir;
+        $barangkeluar->barangkeluar_tax = $request->barangkeluar_tax;
+        $barangkeluar->barangkeluar_subtotal = $request->barangkeluar_subtotal;
+        $barangkeluar->barangkeluar_total = $request->barangkeluar_total;
+        $barangkeluar->ekspedisi_id = $request->ekspedisi_id;
         $barangkeluar->users_id = Auth::id();
 
         $barangkeluar->save();
@@ -67,7 +79,9 @@ class BarangKeluarController extends Controller
         $barang = DB::table('tbl_barang')->get();
         $customer = DB::table('tbl_customer')->get();
         $users = DB::table('users')->get();
-        return view('pages.barangkeluar.edit', compact('barangkeluar', 'barang', 'customer', 'users'));
+        $ekspedisi = DB::table('tbl_ekspedisi')->get();
+
+        return view('pages.barangkeluar.edit', compact('barangkeluar', 'barang', 'customer', 'users', 'ekspedisi'));
     }
 
     // update
@@ -86,6 +100,11 @@ class BarangKeluarController extends Controller
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->barangkeluar_ongkir = $request->barangkeluar_ongkir;
+        $barangkeluar->barangkeluar_tax = $request->barangkeluar_tax;
+        $barangkeluar->barangkeluar_subtotal = $request->barangkeluar_subtotal;
+        $barangkeluar->barangkeluar_total = $request->barangkeluar_total;
+        $barangkeluar->ekspedisi_id = $request->ekspedisi_id;
         $barangkeluar->users_id = Auth::id();
 
         $barangkeluar->save();
@@ -98,6 +117,7 @@ class BarangKeluarController extends Controller
     {
         $barangkeluar = BarangKeluar::find($id);
         $barang_keluar_jumlah = $barangkeluar->barangkeluar_jumlah;
+
         $barangkeluar->delete();
 
         $barang = Barang::where('barang_id', $barangkeluar->barang_id)->first();
