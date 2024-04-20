@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('satuan_id');
             $table->string('barang_kode');
             $table->string('barang_nama');
-            $table->integer('barang_harga');
             $table->integer('barang_stok');
             $table->string('barang_gambar')->nullable();
             $table->string('users_id');

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('barangkeluar_tanggal');
             $table->string('customer_id');
             $table->integer('barangkeluar_jumlah');
+            $table->integer('barangkeluar_harga');
             $table->integer('barangkeluar_ongkir');
             $table->integer('barangkeluar_tax');
             $table->integer('barangkeluar_subtotal');

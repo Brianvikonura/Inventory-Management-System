@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Satuan;
-use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
-    // index
     public function index(Request $request)
     {
         $barang = Barang::with('jenis', 'satuan', 'users')->get();
@@ -25,7 +22,6 @@ class BarangController extends Controller
         return view('pages.barang.index', compact('barang'));
     }
 
-    // create
     public function create()
     {
         $jenisBarang = DB::table('tbl_jenisbarang')->get();
@@ -34,30 +30,24 @@ class BarangController extends Controller
         return view('pages.barang.create', compact('jenisBarang', 'satuan', 'users'));
     }
 
-    // store
     public function store(Request $request)
     {
-        // validate the request
         $request->validate([
             'jenisbarang_id' => 'required|exists:tbl_jenisbarang,jenisbarang_id',
             'satuan_id' => 'required|exists:tbl_satuan,satuan_id',
             'barang_kode' => 'required',
             'barang_nama' => 'required',
-            'barang_harga' => 'required|numeric',
             'barang_stok' => 'required',
         ]);
 
-        // store the request
         $barang = new Barang;
         $barang->jenisbarang_id = $request->jenisbarang_id;
         $barang->satuan_id = $request->satuan_id;
         $barang->barang_kode = $request->barang_kode;
         $barang->barang_nama = $request->barang_nama;
-        $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
         $barang->users_id = Auth::id();
 
-        // save image
         if ($request->hasFile('barang_gambar')) {
             $image = $request->file('barang_gambar');
             $newImageName = $barang->barang_id . '_' . str_replace(' ', '_', $barang->barang_nama) . '.' . $image->getClientOriginalExtension();
@@ -72,7 +62,6 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Barang Berhasil Ditambahkan');
     }
 
-    // edit
     public function edit($id)
     {
         $barang = Barang::findOrFail($id);
@@ -82,7 +71,6 @@ class BarangController extends Controller
         return view('pages.barang.edit', compact('barang', 'jenisBarang', 'satuan', 'users'));
     }
 
-    // update
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -90,18 +78,15 @@ class BarangController extends Controller
             'satuan_id' => 'required|exists:tbl_satuan,satuan_id',
             'barang_kode' => 'nullable',
             'barang_nama' => 'nullable',
-            'barang_harga' => 'nullable',
             'barang_stok' => 'nullable',
             'barang_gambar' => 'nullable',
         ]);
 
-        // update the request
         $barang = Barang::find($id);
         $barang->jenisbarang_id = $request->jenisbarang_id;
         $barang->satuan_id = $request->satuan_id;
         $barang->barang_kode = $request->barang_kode;
         $barang->barang_nama = $request->barang_nama;
-        $barang->barang_harga = $request->barang_harga;
         $barang->barang_stok = $request->barang_stok;
         $barang->users_id = Auth::id();
         if ($request->hasFile('barang_gambar')) {
@@ -119,7 +104,6 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Barang Berhasil Diupdate');
     }
 
-    // destroy
     public function destroy($id)
     {
         $barang = Barang::find($id);

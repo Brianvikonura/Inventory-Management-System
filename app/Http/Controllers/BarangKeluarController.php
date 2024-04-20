@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Barang;
 use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class BarangKeluarController extends Controller
 {
-    // index
     public function index(Request $request)
     {
         $barangkeluar = BarangKeluar::with('barang', 'customer', 'users', 'ekspedisi')->get();
@@ -24,7 +24,6 @@ class BarangKeluarController extends Controller
         return view('pages.barangkeluar.index', compact('barangkeluar'));
     }
 
-    // create
     public function create()
     {
         $barang = DB::table('tbl_barang')->get();
@@ -32,25 +31,45 @@ class BarangKeluarController extends Controller
         $users = DB::table('users')->get();
         $ekspedisi = DB::table('tbl_ekspedisi')->get();
 
-        return view('pages.barangkeluar.create', compact('barang', 'customer', 'users', 'ekspedisi'));
+        $kodeBarangKeluar = $this->generateBarangKeluarKode();
+
+        return view('pages.barangkeluar.create', compact('barang', 'customer', 'users', 'ekspedisi', 'kodeBarangKeluar'));
     }
 
-    // store
+    private function generateBarangKeluarKode()
+    {
+        $now = Carbon::now('Asia/Jakarta');
+        $date = $now->format('dmHis');
+
+        $kodeBarangKeluar = "INVC{$date}";
+
+        return $kodeBarangKeluar;
+    }
+
     public function store(Request $request)
     {
-        // validate the request
         $request->validate([
             'barangkeluar_kode' => 'required',
             'barang_id' => 'required|exists:tbl_barang,barang_id',
             'barangkeluar_tanggal' => 'required',
             'customer_id' => 'required|exists:tbl_customer,customer_id',
             'barangkeluar_jumlah' => 'required',
-            'barangkeluar_ongkir' => 'nullable',
-            'barangkeluar_tax' => 'required',
+            'barangkeluar_harga' => 'required',
+            'barangkeluar_ongkir' => 'nullable|numeric|min:0',
+            'barangkeluar_tax' => 'required|numeric|min:0|max:100',
             'barangkeluar_subtotal' => 'required',
             'barangkeluar_total' => 'required',
             'ekspedisi_id' => 'required|exists:tbl_ekspedisi,ekspedisi_id',
         ]);
+
+        $subtotal = $request->barangkeluar_subtotal;
+        $taxPercentage = $request->barangkeluar_tax;
+        $taxAmount = ($taxPercentage / 100) * $subtotal;
+
+        $total = $subtotal + $taxAmount;
+        if ($request->has('barangkeluar_ongkir')) {
+            $total += $request->barangkeluar_ongkir;
+        }
 
         $barangkeluar = new BarangKeluar;
         $barangkeluar->barangkeluar_kode = $request->barangkeluar_kode;
@@ -58,10 +77,11 @@ class BarangKeluarController extends Controller
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->barangkeluar_harga = $request->barangkeluar_harga;
         $barangkeluar->barangkeluar_ongkir = $request->barangkeluar_ongkir;
         $barangkeluar->barangkeluar_tax = $request->barangkeluar_tax;
-        $barangkeluar->barangkeluar_subtotal = $request->barangkeluar_subtotal;
-        $barangkeluar->barangkeluar_total = $request->barangkeluar_total;
+        $barangkeluar->barangkeluar_subtotal = $subtotal;
+        $barangkeluar->barangkeluar_total = $total;
         $barangkeluar->ekspedisi_id = $request->ekspedisi_id;
         $barangkeluar->users_id = Auth::id();
 
@@ -72,7 +92,6 @@ class BarangKeluarController extends Controller
         return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Ditambahkan');
     }
 
-    // edit
     public function edit($id)
     {
         $barangkeluar = BarangKeluar::findOrFail($id);
@@ -84,7 +103,6 @@ class BarangKeluarController extends Controller
         return view('pages.barangkeluar.edit', compact('barangkeluar', 'barang', 'customer', 'users', 'ekspedisi'));
     }
 
-    // update
     public function update(Request $request, $id)
     {
         $barangkeluar = BarangKeluar::findOrFail($id);
@@ -100,6 +118,7 @@ class BarangKeluarController extends Controller
         $barangkeluar->barangkeluar_tanggal = $request->barangkeluar_tanggal;
         $barangkeluar->customer_id = $request->customer_id;
         $barangkeluar->barangkeluar_jumlah = $request->barangkeluar_jumlah;
+        $barangkeluar->barangkeluar_harga = $request->barangkeluar_harga;
         $barangkeluar->barangkeluar_ongkir = $request->barangkeluar_ongkir;
         $barangkeluar->barangkeluar_tax = $request->barangkeluar_tax;
         $barangkeluar->barangkeluar_subtotal = $request->barangkeluar_subtotal;
@@ -112,7 +131,6 @@ class BarangKeluarController extends Controller
         return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Diupdate');
     }
 
-    // destroy
     public function destroy($id)
     {
         $barangkeluar = BarangKeluar::find($id);

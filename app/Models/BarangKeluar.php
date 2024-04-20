@@ -17,6 +17,7 @@ class BarangKeluar extends Model
         'barangkeluar_tanggal',
         'customer_id',
         'barangkeluar_jumlah',
+        'barangkeluar_harga',
         'barangkeluar_ongkir',
         'barangkeluar_tax',
         'barangkeluar_subtotal',
