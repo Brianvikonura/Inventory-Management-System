@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
 </head>
 
 <body>
@@ -54,27 +53,6 @@
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/todolist.js') }}"></script>
     <!-- End custom js for this page -->
-
-    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
-
-    <script>
-        // new MultiSelectTag('barang_nama')
-    </script>
-
-    <script>
-        function populateNamaBarang() {
-            var selectedKode = document.getElementById("barang_kode").value;
-            var namaBarangSelect = document.getElementById("barang_id");
-            var namaBarangOptions = namaBarangSelect.getElementsByTagName("option");
-
-            for (var i = 0; i < namaBarangOptions.length; i++) {
-                if (namaBarangOptions[i].getAttribute("value") === selectedKode) {
-                    namaBarangSelect.selectedIndex = i;
-                    break;
-                }
-            }
-        }
-    </script>
 
     @stack('scripts')
 </body>

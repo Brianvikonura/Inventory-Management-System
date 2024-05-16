@@ -34,7 +34,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('barang', BarangController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('barangmasuk', BarangMasukController::class);
-    Route::resource('barangkeluar', BarangKeluarController::class);
+    Route::get('barangkeluar', [BarangKeluarController::class, 'index'])->name('barangkeluar.index');
+    Route::get('/barangkeluar/create', [BarangKeluarController::class, 'create'])->name('barangkeluar.create');
+    Route::post('/barangkeluar', [BarangKeluarController::class, 'store'])->name('barangkeluar.store');
+    Route::get('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'show'])->name('barangkeluar.show');
+    Route::get('/barangkeluar/{barangkeluar_kode}/edit', [BarangKeluarController::class, 'edit'])->name('barangkeluar.edit');
+    Route::put('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
+    Route::delete('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
     Route::resource('settings', SettingsController::class);
     Route::resource('pengguna', UserController::class);
 });
