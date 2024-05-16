@@ -9,27 +9,17 @@ class BarangKeluar extends Model
 {
     use HasFactory;
 
-    protected $table = "tbl_barangkeluar";
+    protected $table = 'tbl_barangkeluar';
     protected $primaryKey = 'barangkeluar_id';
     protected $fillable = [
         'barangkeluar_kode',
-        'barang_id',
         'barangkeluar_tanggal',
         'customer_id',
-        'barangkeluar_jumlah',
-        'barangkeluar_harga',
         'barangkeluar_ongkir',
-        'barangkeluar_tax',
-        'barangkeluar_subtotal',
         'barangkeluar_total',
         'users_id',
         'ekspedisi_id',
     ];
-
-    public function barang()
-    {
-        return $this->belongsTo(Barang::class, 'barang_id', 'barang_id');
-    }
 
     public function customer()
     {
@@ -46,12 +36,19 @@ class BarangKeluar extends Model
         return $this->belongsTo(Ekspedisi::class, 'ekspedisi_id', 'ekspedisi_id');
     }
 
-    public function updateStock()
+    public function details()
     {
-        $barang = $this->barang;
-        $stok_awal = $barang->barang_stok;
-        $total_keluar = BarangKeluar::where('barang_id', $this->barang_id)->sum('barangkeluar_jumlah');
-        $barang->barang_stok = $stok_awal - $total_keluar;
-        $barang->save();
+        return $this->hasMany(BarangKeluarDetail::class, 'barangkeluar_id', 'barangkeluar_id');
+    }
+
+    public function updateStock($barang_ids, $jumlah_keluar)
+    {
+        foreach ($barang_ids as $index => $barang_id) {
+            $barang = Barang::find($barang_id);
+            $stok_awal = $barang->barang_stok;
+            $jumlah_keluar_barang = $jumlah_keluar[$index];
+            $barang->barang_stok = $stok_awal - $jumlah_keluar_barang;
+            $barang->save();
+        }
     }
 }

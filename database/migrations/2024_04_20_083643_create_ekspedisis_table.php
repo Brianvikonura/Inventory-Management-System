@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_ekspedisi', function (Blueprint $table) {
-            $table->increments('ekspedisi_id');
+            $table->id('ekspedisi_id');
             $table->string('ekspedisi_nama');
             $table->string('ekspedisi_jenis');
-            $table->string('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

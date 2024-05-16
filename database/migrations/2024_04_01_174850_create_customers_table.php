@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_customer', function (Blueprint $table) {
-            $table->increments('customer_id');
+            $table->id('customer_id');
             $table->string('customer_nama');
             $table->text('customer_alamat')->nullable();
             $table->string('customer_notelp')->nullable();
-            $table->string('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
