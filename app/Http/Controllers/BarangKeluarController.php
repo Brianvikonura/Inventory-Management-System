@@ -164,15 +164,19 @@ class BarangKeluarController extends Controller
     {
         $barangkeluar = BarangKeluar::where('barangkeluar_kode', $barangkeluar_kode)->firstOrFail();
 
+        $barangkeluarDetails = BarangKeluarDetail::where('barangkeluar_id', $barangkeluar->barangkeluar_id)->get();
+
+        foreach ($barangkeluarDetails as $detail) {
+            $barang = Barang::find($detail->barang_id);
+            if ($barang) {
+                $barang->barang_stok += $detail->barangkeluar_jumlah;
+                $barang->save();
+            }
+        }
+
         BarangKeluarDetail::where('barangkeluar_id', $barangkeluar->barangkeluar_id)->delete();
 
         $barangkeluar->delete();
-
-        foreach ($barangkeluar->details as $detail) {
-            $barang = Barang::find($detail->barang_id);
-            $barang->barang_stok += $detail->barangkeluar_jumlah;
-            $barang->save();
-        }
 
         return redirect()->route('barangkeluar.index')->with('success', 'Data Barang Keluar Berhasil Dihapus');
     }
