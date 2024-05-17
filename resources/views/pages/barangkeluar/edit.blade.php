@@ -105,7 +105,7 @@
                                     @foreach ($ekspedisi as $item)
                                         <option value="{{ $item->ekspedisi_id }}"
                                             {{ $item->ekspedisi_id == $barangkeluar->ekspedisi_id ? 'selected' : '' }}>
-                                            {{ $item->ekspedisi_nama }}</option>
+                                            {{ $item->ekspedisi_jenis }}</option>
                                     @endforeach
                                 </select>
                             </div>

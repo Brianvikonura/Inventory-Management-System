@@ -11,8 +11,8 @@ class Ekspedisi extends Model
     protected $table = "tbl_ekspedisi";
     protected $primaryKey = 'ekspedisi_id';
     protected $fillable = [
-        'ekspedisi_nama',
         'ekspedisi_jenis',
+        'ekspedisi_keterangan',
         'users_id',
     ];
 

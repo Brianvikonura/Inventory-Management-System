@@ -83,7 +83,7 @@
                                 <select class="form-control" id="ekspedisi_id" name="ekspedisi_id" required>
                                     <option value="">Pilih Nama Ekspedisi</option>
                                     @foreach ($ekspedisi as $item)
-                                        <option value="{{ $item->ekspedisi_id }}">{{ $item->ekspedisi_nama }}</option>
+                                        <option value="{{ $item->ekspedisi_id }}">{{ $item->ekspedisi_jenis }}</option>
                                     @endforeach
                                 </select>
                             </div>

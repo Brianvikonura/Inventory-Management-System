@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\EkspedisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +44,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
     Route::resource('settings', SettingsController::class);
     Route::resource('pengguna', UserController::class);
+    Route::resource('ekspedisi', EkspedisiController::class);
 });
