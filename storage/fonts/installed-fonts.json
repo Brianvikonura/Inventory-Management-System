@@ -1,0 +1,18 @@
+{
+    "fontawesome": {
+        "normal": "fontawesome_normal_f6b2e9286a2b9f34642c243947f39e1a"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_b4223741f3a81a8fd519ea688113f954"
+    },
+    "font awesome 5 free": {
+        "normal": "C:\\xampp\\htdocs\\inventory-management-system\\storage\\fonts\/font_awesome_5_free_normal_cdb15ac936507bd5e486d9b076705f34",
+        "900": "font_awesome_5_free_900_f49c39f73e544a912dc54b04051c43ee"
+    },
+    "roboto condensed": {
+        "italic": "C:\\xampp\\htdocs\\inventory-management-system\\storage\\fonts\/roboto_condensed_italic_0bb2cc9972f6d996e6f8d0298b5835db",
+        "300": "C:\\xampp\\htdocs\\inventory-management-system\\storage\\fonts\/roboto_condensed_300_c90e0b30fce92d35d0c76c9d5eabf844",
+        "normal": "C:\\xampp\\htdocs\\inventory-management-system\\storage\\fonts\/roboto_condensed_normal_02f844c58012a2e721c48d57925e9618",
+        "bold": "roboto_condensed_bold_89001f3106e204fd9e512a87cc19d8bd"
+    }
+}

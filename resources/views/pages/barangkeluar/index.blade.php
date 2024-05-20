@@ -74,7 +74,7 @@
                                             <td>{{ $barangkeluar->users->name ?? '-' }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <a href="#"
+                                                    <a href="{{ route('invoice-pdf', ['barangkeluar_kode' => $barangkeluar->barangkeluar_kode]) }}"
                                                         class="btn btn-info btn-rounded btn-icon d-flex justify-content-center align-items-center">
                                                         <i class="mdi mdi-file-document"></i>
                                                     </a>

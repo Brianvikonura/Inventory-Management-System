@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\BarangKeluarController;
-use App\Http\Controllers\EkspedisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('settings', SettingsController::class);
     Route::resource('pengguna', UserController::class);
     Route::resource('ekspedisi', EkspedisiController::class);
+    // Route::get('invoice-pdf', [PdfController::class, 'invoicePDF'])->name('invoice-pdf');
+    Route::get('invoice-pdf/{barangkeluar_kode}', [PdfController::class, 'invoicePDF'])->name('invoice-pdf');
 });
