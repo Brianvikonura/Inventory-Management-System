@@ -75,7 +75,7 @@
                 <div class="collapse" id="laporan">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ route('laporan.barangmasuk.index') }}">Laporan Barang Masuk</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#">Laporan Barang Keluar</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('laporan.barangkeluar.index') }}">Laporan Barang Keluar</a></li>
                         <li class="nav-item"> <a class="nav-link" href="#">Laporan Stok Barang</a></li>
                     </ul>
                 </div>
