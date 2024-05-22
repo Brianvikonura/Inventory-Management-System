@@ -10,21 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 class BarangMasukController extends Controller
 {
-    // index
     public function index(Request $request)
     {
-        $barangmasuk = BarangMasuk::with('barang', 'users')->get();
-        $barangmasuk = BarangMasuk::query()
-            ->when($request->input('barangmasuk_nama'), function ($query, $barangmasuk_nama) {
-                $query->where('barangmasuk_nama', 'like', '%' . $barangmasuk_nama . '%')
-                    ->orWhere('barangmasuk_kode', 'like', '%' . $barangmasuk_nama . '%');
-            })
-            ->paginate(10);
+        $barangMasukQuery = BarangMasuk::with('barang', 'users');
+
+        if ($search = $request->input('barangmasuk_nama')) {
+            $barangMasukQuery
+                ->whereHas('barang', function ($query) use ($search) {
+                    $query->where('barang_nama', 'like', '%' . $search . '%');
+                })
+                ->orWhere('barangmasuk_kode', 'like', '%' . $search . '%');
+        }
+
+        $barangmasuk = $barangMasukQuery->paginate(10);
 
         return view('pages.barangmasuk.index', compact('barangmasuk'));
     }
 
-    // create
     public function create()
     {
         $barang = DB::table('tbl_barang')->get();
@@ -32,10 +34,8 @@ class BarangMasukController extends Controller
         return view('pages.barangmasuk.create', compact('barang', 'users'));
     }
 
-    // store
     public function store(Request $request)
     {
-        // validate the request
         $request->validate([
             'barangmasuk_kode' => 'required',
             'barang_id' => 'required|exists:tbl_barang,barang_id',
@@ -43,7 +43,7 @@ class BarangMasukController extends Controller
             'barangmasuk_jumlah' => 'required',
         ]);
 
-        $barangmasuk = new BarangMasuk;
+        $barangmasuk = new BarangMasuk();
         $barangmasuk->barangmasuk_kode = $request->barangmasuk_kode;
         $barangmasuk->barang_id = $request->barang_id;
         $barangmasuk->barangmasuk_tanggal = $request->barangmasuk_tanggal;
@@ -57,7 +57,6 @@ class BarangMasukController extends Controller
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Ditambahkan');
     }
 
-    // edit
     public function edit($id)
     {
         $barangmasuk = BarangMasuk::findOrFail($id);
@@ -66,7 +65,6 @@ class BarangMasukController extends Controller
         return view('pages.barangmasuk.edit', compact('barangmasuk', 'barang', 'users'));
     }
 
-    // update
     public function update(Request $request, $id)
     {
         $barangmasuk = BarangMasuk::findOrFail($id);
@@ -88,7 +86,6 @@ class BarangMasukController extends Controller
         return redirect()->route('barangmasuk.index')->with('success', 'Data Barang Masuk Berhasil Diupdate');
     }
 
-    // destroy
     public function destroy($id)
     {
         $barangmasuk = BarangMasuk::find($id);
