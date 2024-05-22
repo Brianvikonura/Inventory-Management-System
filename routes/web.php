@@ -12,6 +12,7 @@ use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\LapBarangMasukController;
+use App\Http\Controllers\LapBarangKeluarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/barangmasuk', [LapBarangMasukController::class, 'index'])->name('laporan.barangmasuk.index');
     Route::get('/laporan/barangmasuk/pdf', [LapBarangMasukController::class, 'pdf'])->name('laporan.barangmasuk.pdf');
     Route::get('/laporan/barangmasuk/view-pdf', [LapBarangMasukController::class, 'viewPdf'])->name('laporan.barangmasuk.viewPdf');
+    Route::get('/laporan/barangkeluar', [LapBarangKeluarController::class, 'index'])->name('laporan.barangkeluar.index');
+    Route::get('/laporan/barangkeluar/pdf', [LapBarangKeluarController::class, 'pdf'])->name('laporan.barangkeluar.pdf');
+    Route::get('/laporan/barangkeluar/view-pdf', [LapBarangKeluarController::class, 'viewPdf'])->name('laporan.barangkeluar.viewPdf');
 });
