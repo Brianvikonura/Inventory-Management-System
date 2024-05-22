@@ -11,6 +11,7 @@ use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\LapBarangMasukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('settings', SettingsController::class);
     Route::resource('pengguna', UserController::class);
     Route::resource('ekspedisi', EkspedisiController::class);
-    // Route::get('invoice-pdf', [PdfController::class, 'invoicePDF'])->name('invoice-pdf');
     Route::get('invoice-pdf/{barangkeluar_kode}', [PdfController::class, 'invoicePDF'])->name('invoice-pdf');
+    Route::get('/laporan/barangmasuk', [LapBarangMasukController::class, 'index'])->name('laporan.barangmasuk.index');
+    Route::get('/laporan/barangmasuk/pdf', [LapBarangMasukController::class, 'pdf'])->name('laporan.barangmasuk.pdf');
+    Route::get('/laporan/barangmasuk/view-pdf', [LapBarangMasukController::class, 'viewPdf'])->name('laporan.barangmasuk.viewPdf');
 });
