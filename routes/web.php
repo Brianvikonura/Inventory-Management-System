@@ -11,6 +11,7 @@ use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\LapStokBarangController;
 use App\Http\Controllers\LapBarangMasukController;
 use App\Http\Controllers\LapBarangKeluarController;
 
@@ -55,4 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/barangkeluar', [LapBarangKeluarController::class, 'index'])->name('laporan.barangkeluar.index');
     Route::get('/laporan/barangkeluar/pdf', [LapBarangKeluarController::class, 'pdf'])->name('laporan.barangkeluar.pdf');
     Route::get('/laporan/barangkeluar/view-pdf', [LapBarangKeluarController::class, 'viewPdf'])->name('laporan.barangkeluar.viewPdf');
+    Route::get('/laporan/stokbarang', [LapStokBarangController::class, 'index'])->name('laporan.stokbarang.index');
+    Route::get('/laporan/stokbarang/pdf', [LapStokBarangController::class, 'pdf'])->name('laporan.stokbarang.pdf');
+    Route::get('/laporan/stokbarang/view-pdf', [LapStokBarangController::class, 'viewPdf'])->name('laporan.stokbarang.viewPdf');
 });
