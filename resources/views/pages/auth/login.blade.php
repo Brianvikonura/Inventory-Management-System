@@ -14,11 +14,9 @@
         <form method="POST" action="{{ route('login') }}" class="needs-validation pt-3" novalidate="">
             @csrf
             <div class="form-group">
-                <input id="email" type="email" class="form-control form-control-lg"
-                    placeholder="Email @error('email')
-                is-invalid
-            @enderror" name="email"
-                    tabindex="1" autofocus>
+                <input id="email" type="email"
+                    class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Email"
+                    name="email" value="{{ old('email') }}" tabindex="1" autofocus>
                 @error('email')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -27,11 +25,8 @@
             </div>
 
             <div class="form-group">
-                <input id="password" type="password" class="form-control form-control-lg"
-                    placeholder="Password
-                @error('password')
-                        is-invalid
-                    @enderror"
+                <input id="password" type="password"
+                    class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Password"
                     name="password" tabindex="2">
                 @error('password')
                     <div class="invalid-feedback">
@@ -41,7 +36,8 @@
             </div>
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn w-100" tabindex="4">
+                <button type="submit"
+                    class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn w-100" tabindex="4">
                     SIGN IN
                 </button>
             </div>
@@ -50,7 +46,7 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    <!-- JS Libraries -->
 
     <!-- Page Specific JS File -->
 @endpush
