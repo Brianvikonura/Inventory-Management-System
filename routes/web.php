@@ -7,6 +7,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\JenisBarangController;
@@ -31,9 +32,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('home', function () {
-        return view('pages.dashboard');
-    })->name('home');
+    Route::get('/home', [DashboardController::class, 'index'])->name('home');
     Route::resource('jenisBarang', JenisBarangController::class);
     Route::resource('satuan', SatuanController::class);
     Route::resource('barang', BarangController::class);
@@ -46,17 +45,35 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/barangkeluar/{barangkeluar_kode}/edit', [BarangKeluarController::class, 'edit'])->name('barangkeluar.edit');
     Route::put('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
     Route::delete('/barangkeluar/{barangkeluar_kode}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
-    Route::resource('settings', SettingsController::class)->middleware('role:superadmin');
+    Route::resource('settings', SettingsController::class);
     Route::resource('pengguna', UserController::class)->middleware('role:superadmin');
     Route::resource('ekspedisi', EkspedisiController::class);
     Route::get('invoice-pdf/{barangkeluar_kode}', [PdfController::class, 'invoicePDF'])->name('invoice-pdf');
-    Route::get('/laporan/barangmasuk', [LapBarangMasukController::class, 'index'])->name('laporan.barangmasuk.index')->middleware('role:superadmin');
-    Route::get('/laporan/barangmasuk/pdf', [LapBarangMasukController::class, 'pdf'])->name('laporan.barangmasuk.pdf')->middleware('role:superadmin');
-    Route::get('/laporan/barangmasuk/view-pdf', [LapBarangMasukController::class, 'viewPdf'])->name('laporan.barangmasuk.viewPdf')->middleware('role:superadmin');
-    Route::get('/laporan/barangkeluar', [LapBarangKeluarController::class, 'index'])->name('laporan.barangkeluar.index')->middleware('role:superadmin');
-    Route::get('/laporan/barangkeluar/pdf', [LapBarangKeluarController::class, 'pdf'])->name('laporan.barangkeluar.pdf')->middleware('role:superadmin');
-    Route::get('/laporan/barangkeluar/view-pdf', [LapBarangKeluarController::class, 'viewPdf'])->name('laporan.barangkeluar.viewPdf')->middleware('role:superadmin');
-    Route::get('/laporan/stokbarang', [LapStokBarangController::class, 'index'])->name('laporan.stokbarang.index')->middleware('role:superadmin');
-    Route::get('/laporan/stokbarang/pdf', [LapStokBarangController::class, 'pdf'])->name('laporan.stokbarang.pdf')->middleware('role:superadmin');
-    Route::get('/laporan/stokbarang/view-pdf', [LapStokBarangController::class, 'viewPdf'])->name('laporan.stokbarang.viewPdf')->middleware('role:superadmin');
+    Route::get('/laporan/barangmasuk', [LapBarangMasukController::class, 'index'])
+        ->name('laporan.barangmasuk.index')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/barangmasuk/pdf', [LapBarangMasukController::class, 'pdf'])
+        ->name('laporan.barangmasuk.pdf')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/barangmasuk/view-pdf', [LapBarangMasukController::class, 'viewPdf'])
+        ->name('laporan.barangmasuk.viewPdf')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/barangkeluar', [LapBarangKeluarController::class, 'index'])
+        ->name('laporan.barangkeluar.index')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/barangkeluar/pdf', [LapBarangKeluarController::class, 'pdf'])
+        ->name('laporan.barangkeluar.pdf')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/barangkeluar/view-pdf', [LapBarangKeluarController::class, 'viewPdf'])
+        ->name('laporan.barangkeluar.viewPdf')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/stokbarang', [LapStokBarangController::class, 'index'])
+        ->name('laporan.stokbarang.index')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/stokbarang/pdf', [LapStokBarangController::class, 'pdf'])
+        ->name('laporan.stokbarang.pdf')
+        ->middleware('role:superadmin');
+    Route::get('/laporan/stokbarang/view-pdf', [LapStokBarangController::class, 'viewPdf'])
+        ->name('laporan.stokbarang.viewPdf')
+        ->middleware('role:superadmin');
 });

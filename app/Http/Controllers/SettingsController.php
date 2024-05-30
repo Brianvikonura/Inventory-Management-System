@@ -18,8 +18,8 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255'],
             'old_password' => ['required', 'string'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
@@ -30,8 +30,14 @@ class SettingsController extends Controller
             return redirect()->route('settings.index')->with('error', 'Password Sekarang Salah');
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
+        if ($request->filled('name')) {
+            $user->name = $request->name;
+        }
+
+        if ($request->filled('email')) {
+            $user->email = $request->email;
+        }
+        
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
