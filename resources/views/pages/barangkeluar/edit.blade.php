@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 mt-4 mt-md-0">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
@@ -128,7 +128,8 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
-                            <a href="{{ route('barangkeluar.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                            <a href="{{ route('barangkeluar.index') }}"
+                                class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

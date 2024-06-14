@@ -35,7 +35,8 @@
                                     <select class="form-control" id="jenisbarang_id" name="jenisbarang_id" required>
                                         <option value="">Pilih Jenis Barang</option>
                                         @foreach ($jenisBarang as $item)
-                                            <option value="{{ $item->jenisbarang_id }}">{{ $item->jenisbarang_nama }}</option>
+                                            <option value="{{ $item->jenisbarang_id }}">{{ $item->jenisbarang_nama }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -53,7 +54,7 @@
                                     <input type="number" class="form-control" id="barang_stok" name="barang_stok" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                <a href="{{ route('barang.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                                <a href="{{ route('barang.index') }}" class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

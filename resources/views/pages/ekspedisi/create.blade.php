@@ -13,14 +13,15 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="ekspedisi_jenis">Jenis Ekspedisi <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="ekspedisi_jenis" name="ekspedisi_jenis" required>
+                                    <input type="text" class="form-control" id="ekspedisi_jenis" name="ekspedisi_jenis"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="ekspedisi_keterangan">Keterangan</label>
                                     <textarea class="form-control" id="ekspedisi_keterangan" name="ekspedisi_keterangan" rows="4"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                <a href="{{ route('ekspedisi.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                                <a href="{{ route('ekspedisi.index') }}" class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

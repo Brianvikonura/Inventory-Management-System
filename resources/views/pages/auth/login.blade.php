@@ -5,8 +5,11 @@
 @section('content')
 
     <div class="auth-form-light text-left p-5">
-        <div class="brand-logo">
-            <img src="{{ asset('images/logo.svg') }}">
+        <div class="text-center mb-4">
+            <div class="brand-logo mb-2">
+                <img src="{{ asset('images/logo.png') }}" alt="logo" style="width: 120px">
+            </div>
+            <h4 class="mb-0">Inventory Management System</h4>
         </div>
         <h4>Hello! let's get started</h4>
         <h6 class="font-weight-light">Sign in to continue.</h6>

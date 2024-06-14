@@ -13,10 +13,8 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="customer_nama">Nama Customer</label>
-                                    <input type="text"
-                                        class="form-control @error('customer_nama') is-invalid @enderror"
-                                        id="customer_nama" name="customer_nama"
-                                        value="{{ $customer->customer_nama }}">
+                                    <input type="text" class="form-control @error('customer_nama') is-invalid @enderror"
+                                        id="customer_nama" name="customer_nama" value="{{ $customer->customer_nama }}">
                                     @error('customer_nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -48,7 +46,7 @@
                                     @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                <a href="{{ route('customer.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                                <a href="{{ route('customer.index') }}" class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

@@ -34,7 +34,7 @@
                                     @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                <a href="{{ route('ekspedisi.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                                <a href="{{ route('ekspedisi.index') }}" class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

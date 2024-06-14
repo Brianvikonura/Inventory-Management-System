@@ -13,15 +13,16 @@
                                 </div>
                             </div>
                             <form method="GET" action="{{ route('laporan.barangmasuk.index') }}">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
                                     <h4 class="card-title">Laporan Barang Masuk</h4>
-                                    <div>
+                                    <div class="mb-2 mb-md-0">
                                         <div class="input-group mb-2">
                                             <input type="text" class="form-control" placeholder="Search"
                                                 name="barangmasuk_nama" value="{{ request('barangmasuk_nama') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i
-                                                        class="mdi mdi-account-search"></i></button>
+                                                        class="mdi mdi-magnify"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -45,24 +46,26 @@
                                                         {{ request('filter_waktu') == '1_tahun' ? 'selected' : '' }}>1 Tahun
                                                         Terakhir</option>
                                                 </select>
-                                                <div class="input-group-append ms-2">
-                                                    <button type="submit" class="btn btn-primary"><i
+                                                <div class="input-group-append ms-0 ms-md-2">
+                                                    <button type="submit" class="btn btn-primary mt-2 mt-md-0"><i
                                                             class="mdi mdi-filter-outline"></i> Filter</button>
                                                     <a href="{{ route('laporan.barangmasuk.index') }}"
-                                                        class="btn btn-warning ml-2"><i class="mdi mdi-undo-variant"></i>
+                                                        class="btn btn-warning ml-4 ml-md-2 mt-2 mt-md-0"><i
+                                                            class="mdi mdi-undo-variant"></i>
                                                         Reset</a>
                                                     <a href="{{ route('laporan.barangmasuk.viewPdf', [
                                                         'barangmasuk_nama' => request('barangmasuk_nama'),
                                                         'filter_waktu' => request('filter_waktu'),
                                                     ]) }}"
-                                                        target="_blank" class="btn btn-info ml-2"><i
+                                                        target="_blank" class="btn btn-info ml-2 mt-2 mt-md-0"><i
                                                             class="mdi mdi-eye"></i> View PDF</a>
                                                     <a href="{{ route('laporan.barangmasuk.pdf', [
                                                         'barangmasuk_nama' => request('barangmasuk_nama'),
                                                         'filter_waktu' => request('filter_waktu'),
                                                     ]) }}"
-                                                        class="btn btn-danger ml-2"><i class="mdi mdi-download-outline"></i>
-                                                        Unduh
+                                                        class="btn btn-danger ml-2 mt-2 mt-md-0"><i
+                                                            class="mdi mdi-download-outline"></i>
+                                                        Download
                                                         PDF</a>
                                                 </div>
                                             </div>

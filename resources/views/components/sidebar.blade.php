@@ -1,14 +1,12 @@
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item nav-profile">
                     <a href="{{ route('home') }}" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="{{ asset('images/faces/face1.jpg') }}" alt="profile">
+                            <img src="{{ asset('images/faces/avatar.png') }}" alt="profile">
                             <span class="login-status online"></span>
-                            <!--change to offline or busy as needed-->
                         </div>
                         <div class="nav-profile-text d-flex flex-column">
                             <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>
@@ -95,7 +93,7 @@
                 <li class="nav-item nav-profile">
                     <a href="{{ route('home') }}" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="{{ asset('images/faces/face1.jpg') }}" alt="profile">
+                            <img src="{{ asset('images/faces/avatar.png') }}" alt="profile">
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>

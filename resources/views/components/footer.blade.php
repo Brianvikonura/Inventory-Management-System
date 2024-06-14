@@ -5,7 +5,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            by Brian Viko Nura
+            by PT. Company Name
         </span>
         <span class="float-none float-sm-end mt-1 mt-sm-0 text-end">
             v1.0.0

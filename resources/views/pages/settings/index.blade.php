@@ -87,7 +87,7 @@
                                 @endif
 
                                 <button type="submit" class="btn btn-primary me-2">Save Changes</button>
-                                <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
+                                <a href="{{ route('home') }}" class="btn btn-danger mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>

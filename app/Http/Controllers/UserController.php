@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // index
     public function index(Request $request)
     {
         $users = User::query()
@@ -22,16 +21,13 @@ class UserController extends Controller
         return view('pages.pengguna.index', compact('users'));
     }
 
-    // create
     public function create()
     {
         return view('pages.pengguna.create');
     }
 
-    // store
     public function store(Request $request)
     {
-        // validate the request
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -41,7 +37,6 @@ class UserController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak sesuai dengan password'
         ]);
 
-        // store the request
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -52,23 +47,19 @@ class UserController extends Controller
         return redirect()->route('pengguna.index')->with('success', 'Data Pengguna Berhasil Dibuat');
     }
 
-    // show
     public function show($id)
     {
         return view('pages.pengguna.show');
     }
 
-    // edit
     public function edit($id)
     {
         $user = User::findOrFail($id);
         return view('pages.pengguna.edit', compact('user'));
     }
 
-    // update
     public function update(Request $request, $id)
     {
-        // validate the request
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -92,7 +83,6 @@ class UserController extends Controller
         return redirect()->route('pengguna.index')->with('success', 'Data Pengguna Berhasil Diupdate');
     }
 
-    // destroy
     public function destroy($id)
     {
         $user = User::find($id);

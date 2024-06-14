@@ -12,21 +12,23 @@
                                     @include('layouts.alert')
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div
+                                class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
                                 <h4 class="card-title">Data Barang</h4>
-                                <div class="d-flex justify-content-between">
-                                    <div>
+                                <div class="d-flex flex-column flex-md-row justify-content-between">
+                                    <div class="mb-2 mb-md-0">
                                         <form method="GET" action="{{ route('barang.index') }}">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search" name="barang_nama">
+                                                <input type="text" class="form-control" placeholder="Search"
+                                                    name="barang_nama">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary"><i
-                                                            class="mdi mdi-account-search"></i></button>
+                                                            class="mdi mdi-magnify"></i></button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="ms-2">
+                                    <div class="ms-0 ms-md-2">
                                         <a class="btn btn-primary" href="{{ route('barang.create') }}">Tambah Data
                                             <i class="fe fe-plus"></i></a>
                                     </div>
@@ -54,8 +56,9 @@
                                                 {{ $index + 1 }}
                                             </td>
                                             <td>
-                                                @if($barang->barang_gambar)
-                                                    <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang" style="max-width: 100px;">
+                                                @if ($barang->barang_gambar)
+                                                    <img src="{{ asset($barang->barang_gambar) }}" alt="Gambar Barang"
+                                                        style="max-width: 100px;">
                                                 @else
                                                 @endif
                                             </td>

@@ -20,7 +20,7 @@
                                     <textarea class="form-control" id="satuan_keterangan" name="satuan_keterangan" rows="4"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
-                                <a href="{{ route('satuan.index') }}" class="btn btn-danger mr-1">Cancel</a>
+                                <a href="{{ route('satuan.index') }}" class="btn btn-danger mr-1 mt-2 mt-md-0">Cancel</a>
                             </form>
                         </div>
                     </div>
